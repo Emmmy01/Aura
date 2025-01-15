@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    #particles-js {
+      background-color: black;
+    }
+
+    .cursor-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #2ecc71;
+      border-radius: 50%;
+      pointer-events: none; /* Prevent cursor from interacting */
+      transform: translate(-50%, -50%);
+      animation: shrink 1s ease-out forwards;
+    }
+
+    @keyframes shrink {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .cursor-dot {
+        animation: none; /* Prevent animation on small screens */
+      }
+    }
+  </style>
+
+  <body>
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <script>
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 80 },
+          color: { value: "#2ecc71" },
+          shape: { type: "circle" },
+          line_linked: { enable: true, color: "#2ecc71" },
+          move: { enable: true, speed: 2 },
+        },
+      });
+    </script>
+    <script>
+      const isSmallScreen = window.innerWidth <= 768;
+
+      // Add event listener for cursor movement
+      document.addEventListener("mousemove", (e) => {
+        createDot(e.pageX, e.pageY);
+      });
+
+      // Add event listener for touch movement on small screens
+      if (isSmallScreen) {
+        document.addEventListener("touchmove", (e) => {
+          const touch = e.touches[0];
+          createDot(touch.pageX, touch.pageY);
+        });
+      }
+
+      function createDot(x, y) {
+        const dot = document.createElement("div");
+        dot.classList.add("cursor-dot");
+        dot.style.left = `${x}px`;
+        dot.style.top = `${y}px`;
+
+        document.body.appendChild(dot);
+
+        // Remove the dot after animation or delay
+        if (!isSmallScreen) {
+          setTimeout(() => dot.remove(), 1000); // Remove after animation
+        } else {
+          setTimeout(() => dot.remove(), 3000); // Longer persistence for small screens
+        }
+      }
+    </script>
+  </body>
+</html>

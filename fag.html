@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* General Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #000;
+        color: #fff;
+      }
+
+      /* Header */
+      header {
+        background: #007bff; /* Blue */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        height: 70px;
+      }
+      header .logo img {
+        width: 100px;
+      }
+      header .cart-icon {
+        font-size: 1.5rem;
+        color: #fff;
+        cursor: pointer;
+      }
+      header .open-sidebar-btn {
+        font-size: 22px;
+        background: none;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        position: fixed;
+        top: -450px;
+        left: 0;
+        width: 360px;
+        height: 300px;
+        background-color: #007bff;
+        color: #fff;
+        overflow-y: auto;
+        transition: top 0.8s ease-in-out;
+        z-index: 1000;
+        padding: 40px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+      }
+      .sidebar h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      .sidebar-links {
+        list-style: none;
+        padding: 0;
+      }
+      .sidebar-links a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 18px;
+        display: block;
+        margin-bottom: 15px;
+      }
+      .sidebar-links a:hover {
+        color: #000;
+      }
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      /* FAQ Section */
+      .faq-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .faq-header {
+        text-align: center;
+        margin-bottom: 40px;
+        background-image: url(b14.png);
+
+        border-radius: 50px;
+        border-top-left-radius: 90px;
+        border-bottom-right-radius: 70px;
+        border-bottom-left-radius: 50px;
+        padding: 50px 20px;
+      }
+      .faq-header h1 {
+        font-size: 1.5rem;
+        color: #1e90ff;
+      }
+      .faq-content {
+        margin-top: 20px;
+      }
+      .faq-item {
+        background: linear-gradient(145deg, #1e1e1e, #292929);
+        border-radius: 10px;
+        margin-bottom: 15px;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+      .faq-item:hover {
+        transform: translateY(-5px);
+      }
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        margin-top: 10px;
+        font-size: 0.9rem;
+        color: #ccc;
+        transition: max-height 0.3s ease-in-out;
+      }
+      .fa-question-circle {
+        padding: 10px;
+        color: #007bff;
+        font-size: 1.2rem;
+      }
+      .faq-item.open .faq-answer {
+        max-height: 200px;
+      }
+      .arrow {
+        font-size: 1.2rem;
+        color: #fff;
+        transition: transform 0.3s ease;
+        padding: 12px;
+      }
+      .faq-item.open .arrow {
+        transform: rotate(180deg);
+      }
+
+      /* Footer */
+      footer {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: #000;
+        padding: 10px 0;
+      }
+      footer i {
+        font-size: 1.5rem;
+        color: #fff;
+        cursor: pointer;
+      }
+      footer i:hover {
+        color: #007bff;
+      }
+      header {
+        background: linear-gradient(45deg, #007bff, #0056b3);
+      }
+      .faq-contact {
+        text-align: center;
+        padding: 20px;
+        background: #0c0c0c;
+        border-top: 2px solid #1e90ff;
+      }
+      .faq-contact a {
+        color: #1e90ff;
+        display: inline-block;
+        margin: 10px;
+        font-size: 1.2rem;
+        text-decoration: none;
+      }
+      .faq-contact i {
+        padding: 10px;
+      }
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+      }
+
+      .faq-item.open .faq-answer {
+        max-height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <a href="index.php">
+          <img
+            src="Gray_and_Black_Simple_Studio_Logo__2_-removebg-preview.png"
+            alt="Logo"
+          />
+        </a>
+      </div>
+      <div class="space">
+        <button class="open-sidebar-btn" onclick="toggleSidebar()">☰</button>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <button class="close-btn" onclick="toggleSidebar()">×</button>
+      <ul class="sidebar-links">
+        <li><a href="index.php">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="faq.html">FAQs</a></li>
+        <li><a href="terms.html">Terms & Conditions</a></li>
+      </ul>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-container">
+      <div class="faq-header">
+        <h1>Frequently Asked Questions</h1>
+        <p>Your questions answered, right here!</p>
+      </div>
+      <div class="faq-content">
+        <div class="faq-item">
+          <div class="faq-question">
+            <i class="fas fa-question-circle"></i>
+            <span>What are your delivery times?</span>
+            <i class="fas fa-chevron-down arrow"></i>
+          </div>
+          <div class="faq-answer">
+            Our delivery times are between 3-5 working days for local orders and
+            7-10 working days for international orders.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <i class="fas fa-question-circle"></i>
+            <span>Do you deliver on holidays?</span>
+            <i class="fas fa-chevron-down arrow"></i>
+          </div>
+          <div class="faq-answer">
+            No, we do not work during the holidays. Your item will be delivered
+            to you after the holiday period
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <i class="fas fa-question-circle"></i>
+            <span>Can I cancel my order?</span>
+            <i class="fas fa-chevron-down arrow"></i>
+          </div>
+          <div class="faq-answer">
+            Yes, you can cancel your order within 24 hours of placement. Please
+            contact our support team.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <i class="fas fa-question-circle"></i>
+            <span>How do I track my order?</span>
+            <i class="fas fa-chevron-down arrow"></i>
+          </div>
+          <div class="faq-answer">
+            Once your order is shipped, we will provide you with a tracking
+            number via email.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <i class="fas fa-question-circle"></i>
+            <span>What payment methods do you accept?</span>
+            <i class="fas fa-chevron-down arrow"></i>
+          </div>
+          <div class="faq-answer">
+            We accept credit/debit cards, PayPal, and bank transfers.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <i class="fas fa-question-circle"></i>
+            <span>What is your return policy?</span>
+            <i class="fas fa-chevron-down arrow"></i>
+          </div>
+          <div class="faq-answer">
+            You can return items within 30 days of receipt, provided they are in
+            their original condition.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <i class="fas fa-question-circle"></i>
+            <span>Do you offer international shipping?</span>
+            <i class="fas fa-chevron-down arrow"></i>
+          </div>
+          <div class="faq-answer">
+            Yes, we offer international shipping to select countries. Additional
+            fees may apply.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="faq-contact">
+      <p>Didn't find what you were looking for?</p>
+      <a href="mailto:support@example.com"
+        ><i class="fas fa-envelope"></i> Email Us</a
+      >
+      <a href="tel:+1234567890"><i class="fas fa-phone"></i> Call Us</a>
+    </div>
+    <br />
+    <br />
+
+    <!-- Footer -->
+    <footer>
+      <a href="index.php"><i class="fas fa-home"></i></a>
+      <div class="space">
+        <a href="cart.html"><i class="fas fa-shopping-cart cart-icon"></i></a>
+        <a href="cart.html"
+          ><span
+            id="cart-count"
+            style="
+              position: absolute;
+              top: 10px;
+              right: 200px;
+              background-color: red;
+              color: white;
+              border-radius: 50%;
+              padding: 2px 6px;
+              font-size: 10px;
+            "
+            >0</span
+          >
+        </a>
+      </div>
+      <a href="love.html"> <i class="fas fa-heart"></i></a>
+      <a href="user.php">
+        <div class="solo"><i class="fas fa-user"></i></div
+      ></a>
+    </footer>
+    <script>
+      // Sidebar toggle functionality
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.style.top = sidebar.style.top === "0px" ? "-450px" : "0px";
+      }
+
+      // FAQ Toggle
+      document.querySelectorAll(".faq-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          item.classList.toggle("open");
+        });
+      });
+    </script>
+    <script></script>
+    <script>
+      function addToCart(product) {
+        // Get the current cart from local storage
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        // Check if the item already exists in the cart
+        const existingItem = cart.find(
+          (item) => item.productName === product.productName
+        );
+        if (existingItem) {
+          // Increase quantity if it already exists
+          existingItem.quantity += 1; // Increment the quantity
+        } else {
+          // Add new item with quantity 1 if it's a new product
+          cart.push({
+            ...product,
+            quantity: 1,
+          }); // New product starts with quantity 1
+        }
+        // Save updated cart to local storage
+        localStorage.setItem("cart", JSON.stringify(cart));
+        // Update the cart count display
+        updateCartCount();
+      }
+      // Function to remove an item from the cart
+      function removeFromCart(index) {
+        cart.splice(index, 1); // Remove item from cart
+        localStorage.setItem("cart", JSON.stringify(cart)); // Save updated cart
+        renderCart(); // Re-render cart
+        updateCartCount(); // Update the cart count display
+      }
+
+      function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const totalItems = cart.length; // Get the number of unique items
+        const cartCountElement = document.getElementById("cart-count");
+
+        if (totalItems > 0) {
+          cartCountElement.textContent = totalItems;
+          cartCountElement.style.display = "inline"; // Show the count
+        } else {
+          cartCountElement.textContent = ""; // Clear the count
+          cartCountElement.style.display = "none"; // Hide the count
+        }
+      }
+
+      // Call updateCartCount initially to set the correct count on page load
+      updateCartCount();
+      // Initialize AOS
+      AOS.init();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Website with Sidebar and Loading Animation</title>
+    <style>
+      /* Sidebar and General Styles */
+      .solo i {
+        color: #007bff;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: -450px;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background: #333;
+        color: #fff;
+        transition: top 0.3s;
+      }
+
+      .open-sidebar-btn {
+        cursor: pointer;
+      }
+
+      .close-btn {
+        background: red;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+
+      .search-bar {
+        margin: 20px;
+      }
+
+      .search-bar input {
+        padding: 10px;
+        width: 70%;
+      }
+
+      .search-bar button {
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* Loading Animation Styles */
+      .loading {
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .loading svg polyline {
+        fill: none;
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .loading svg polyline#back {
+        stroke: #ff4d5033;
+      }
+
+      .loading svg polyline#front {
+        stroke: #ff4d4f;
+        stroke-dasharray: 48, 144;
+        stroke-dashoffset: 192;
+        animation: dash_682 1.4s linear infinite;
+      }
+
+      @keyframes dash_682 {
+        72.5% {
+          opacity: 0;
+        }
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <img
+          src="Gray_and_Black_Simple_Studio_Logo__2_-removebg-preview.png"
+          alt=""
+        />
+      </div>
+      <div class="space">
+        <span class="open-sidebar-btn" onclick="toggleSidebar()">☰</span>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <button class="close-btn" onclick="toggleSidebar()">×</button>
+      <ul class="sidebar-links">
+        <li><a href="index.php">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="fag.html">FAQs</a></li>
+        <li><a href="terms.html">Terms & Conditions</a></li>
+        <li><a href="policies.html">Policies</a></li>
+      </ul>
+      <br /><br />
+      <div class="socials">
+        <h2>Connect With Us</h2>
+        <br />
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <form
+        id="search-form"
+        action="search.php"
+        method="GET"
+        onsubmit="showLoading()"
+      >
+        <input
+          type="text"
+          id="search-input"
+          name="query"
+          placeholder="Search for products..."
+          required
+        />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+
+    <!-- Loading Animation -->
+    <div class="loading">
+      <svg width="64px" height="48px">
+        <polyline
+          points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"
+          id="back"
+        ></polyline>
+        <polyline
+          points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"
+          id="front"
+        ></polyline>
+      </svg>
+    </div>
+
+    <script>
+      // Function to toggle the sidebar
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        if (sidebar.style.top === "0px") {
+          sidebar.style.top = "-450px"; // Close sidebar
+        } else {
+          sidebar.style.top = "0"; // Open sidebar
+        }
+      }
+
+      // Function to show the loading animation
+      function showLoading() {
+        document.querySelector(".loading").style.display = "flex";
+      }
+
+      // Optional: Hide loading after some delay (for demonstration purposes)
+      document
+        .getElementById("search-form")
+        .addEventListener("submit", function (event) {
+          setTimeout(() => {
+            document.querySelector(".loading").style.display = "none";
+          }, 3000); // Replace 3000ms with actual search duration
+        });
+    </script>
+  </body>
+</html>

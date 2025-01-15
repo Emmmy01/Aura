@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skeleton Loader</title>
+    <style>
+      /* General styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f5f5f5;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 600px;
+        margin: 50px auto;
+      }
+
+      /* Skeleton loader styles */
+      .skeleton {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .skeleton div {
+        background: linear-gradient(90deg, #e0e0e0, #f0f0f0, #e0e0e0);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+        border-radius: 4px;
+      }
+
+      .image-placeholder {
+        height: 150px;
+      }
+
+      .text-placeholder {
+        height: 20px;
+      }
+
+      .text-placeholder.short {
+        width: 50%;
+      }
+
+      .text-placeholder.long {
+        width: 80%;
+      }
+
+      /* Shimmer effect */
+      @keyframes shimmer {
+        0% {
+          background-position: -200% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+
+      /* Actual content styles */
+      .content {
+        display: none;
+      }
+
+      .content img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }
+
+      .content h3 {
+        margin: 10px 0;
+        font-size: 1.2em;
+        color: #333;
+      }
+
+      .content p {
+        font-size: 1em;
+        color: #555;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Skeleton Loader -->
+      <div class="skeleton" id="skeleton">
+        <div class="image-placeholder"></div>
+        <div class="text-placeholder long"></div>
+        <div class="text-placeholder short"></div>
+      </div>
+
+      <!-- Actual Content -->
+      <div class="content" id="content">
+        <img src="https://via.placeholder.com/600x150" alt="Loaded Image" />
+        <h3>Loaded Content Title</h3>
+        <p>
+          This is the actual content that loads after the skeleton animation. It
+          replaces the loader once the page is ready.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      // Simulate loading delay
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          // Hide the skeleton loader
+          document.getElementById("skeleton").style.display = "none";
+
+          // Show the actual content
+          document.getElementById("content").style.display = "block";
+        }, 3000); // Simulate 3 seconds delay
+      });
+    </script>
+  </body>
+</html>
+s

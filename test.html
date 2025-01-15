@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tech Portfolio</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        color: #fff;
+        background: #000; /* Black background for contrast */
+        overflow: hidden;
+        cursor: dot;
+      }
+
+      #particles-js {
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        z-index: -1; /* Ensure it's behind all content */
+      }
+
+      .content {
+        position: relative;
+        text-align: center;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .content h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        color: #2ecc71;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .content p {
+        font-size: 1.2rem;
+        color: #aaa;
+      }
+
+      .btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        color: #fff;
+        background-color: #2ecc71;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+
+      .btn:hover {
+        background-color: #27ae60;
+      }
+
+      .cursor-dot {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background-color: #2ecc71;
+        border-radius: 50%;
+        pointer-events: none; /* Prevent cursor from interacting */
+        transform: translate(-50%, -50%);
+        animation: shrink 1s ease-out forwards;
+      }
+
+      @keyframes shrink {
+        0% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .cursor-dot {
+          animation: none; /* Prevent animation on small screens */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="particles-js"></div>
+
+    <div class="content">
+      <h1>Welcome to My Portfolio</h1>
+      <p>Crafting responsive, interactive, and modern web experiences.</p>
+      <a href="#projects" class="btn">Explore Projects</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <script>
+      particlesJS("particles-js", {
+        particles: {
+          number: {
+            value: 80,
+            density: {
+              enable: true,
+              value_area: 800,
+            },
+          },
+          color: {
+            value: "#2ecc71",
+          },
+          shape: {
+            type: "circle",
+            stroke: {
+              width: 0,
+              color: "#000000",
+            },
+          },
+          opacity: {
+            value: 0.5,
+            random: false,
+            anim: {
+              enable: false,
+            },
+          },
+          size: {
+            value: 3,
+            random: true,
+            anim: {
+              enable: false,
+            },
+          },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#2ecc71",
+            opacity: 0.4,
+            width: 1,
+          },
+          move: {
+            enable: true,
+            speed: 3,
+            direction: "none",
+            random: false,
+            straight: false,
+            out_mode: "out",
+            attract: {
+              enable: false,
+            },
+          },
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: {
+              enable: true,
+              mode: "repulse",
+            },
+            onclick: {
+              enable: true,
+              mode: "push",
+            },
+            resize: true,
+          },
+          modes: {
+            repulse: {
+              distance: 100,
+              duration: 0.4,
+            },
+            push: {
+              particles_nb: 4,
+            },
+          },
+        },
+        retina_detect: true,
+      });
+    </script>
+    <script>
+      const isSmallScreen = window.innerWidth <= 768;
+
+      // Add event listener for cursor movement
+      document.addEventListener("mousemove", (e) => {
+        createDot(e.pageX, e.pageY);
+      });
+
+      // Add event listener for touch movement on small screens
+      if (isSmallScreen) {
+        document.addEventListener("touchmove", (e) => {
+          const touch = e.touches[0];
+          createDot(touch.pageX, touch.pageY);
+        });
+      }
+
+      function createDot(x, y) {
+        const dot = document.createElement("div");
+        dot.classList.add("cursor-dot");
+        dot.style.left = `${x}px`;
+        dot.style.top = `${y}px`;
+
+        document.body.appendChild(dot);
+
+        // Remove the dot after animation or delay
+        if (!isSmallScreen) {
+          setTimeout(() => dot.remove(), 1000); // Remove after animation
+        } else {
+          setTimeout(() => dot.remove(), 3000); // Longer persistence for small screens
+        }
+      }
+    </script>
+  </body>
+</html>

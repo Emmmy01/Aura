@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
+      width: 100%;
+    }
+    .faq-section {
+      background-color: #000; /* Black background */
+      color: #fff; /* White text */
+      padding: 150px 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .faq-section h1 {
+      text-align: center;
+      color: #1e90ff; /* Bright blue */
+      margin-bottom: 30px;
+    }
+
+    .faq {
+      border: 1px solid #1e90ff;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .question {
+      padding: 15px;
+      background-color: #111; /* Dark gray */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .question h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    .arrow {
+      font-size: 1.5rem;
+      color: #1e90ff;
+      transition: transform 0.3s;
+    }
+
+    .answer {
+      max-height: 0;
+      overflow: hidden;
+      background-color: #222; /* Slightly lighter gray */
+      color: #ddd;
+      transition: max-height 0.3s ease-in-out;
+    }
+
+    .answer p {
+      padding: 15px;
+      margin: 0;
+    }
+  </style>
+  <body>
+    <section class="faq-section">
+      <div class="faq-container">
+        <h1>Frequently Asked Questions</h1>
+        <div class="faq">
+          <div class="question" onclick="toggleAnswer(this)">
+            <h3>What is this website about?</h3>
+            <span class="arrow">&#9662;</span>
+            <!-- Down arrow -->
+          </div>
+          <div class="answer">
+            <p>
+              This website is a dedicated online shop for students of Osun State
+              University, offering an easy and reliable way to purchase
+              essential items at affordable prices.
+            </p>
+          </div>
+        </div>
+        <div class="faq">
+          <div class="question" onclick="toggleAnswer(this)">
+            <h3>How do I place an order?</h3>
+            <span class="arrow">&#9662;</span>
+          </div>
+          <div class="answer">
+            <p>
+              Browse the available products, add items to your cart, and proceed
+              to checkout to complete your order. It's quick and simple!
+            </p>
+          </div>
+        </div>
+        <div class="faq">
+          <div class="question" onclick="toggleAnswer(this)">
+            <h3>Do you offer delivery services?</h3>
+            <span class="arrow">&#9662;</span>
+          </div>
+          <div class="answer">
+            <p>
+              Yes, we deliver items directly to your hostel or residence. We
+              also offer free delivery for orders above a specific amount.
+            </p>
+          </div>
+        </div>
+        <div class="faq">
+          <div class="question" onclick="toggleAnswer(this)">
+            <h3>What payment methods are accepted?</h3>
+            <span class="arrow">&#9662;</span>
+          </div>
+          <div class="answer">
+            <p>
+              We accept bank transfers as our primary payment method. Details
+              are provided during checkout.
+            </p>
+          </div>
+        </div>
+        <div class="faq">
+          <div class="question" onclick="toggleAnswer(this)">
+            <h3>Can I return or exchange an item?</h3>
+            <span class="arrow">&#9662;</span>
+          </div>
+          <div class="answer">
+            <p>
+              Yes, we allow returns or exchanges within 7 days of delivery. The
+              item must be in its original condition. Please visit our Returns
+              and Exchanges page for more details.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      function toggleAnswer(faqElement) {
+        const answer = faqElement.nextElementSibling;
+        const arrow = faqElement.querySelector(".arrow");
+
+        if (answer.style.maxHeight) {
+          // If the answer is open, close it
+          answer.style.maxHeight = null;
+          arrow.style.transform = "rotate(0deg)"; // Reset arrow direction
+        } else {
+          // Close all open answers first
+          const allAnswers = document.querySelectorAll(".answer");
+          const allArrows = document.querySelectorAll(".arrow");
+          allAnswers.forEach((ans) => (ans.style.maxHeight = null));
+          allArrows.forEach((arr) => (arr.style.transform = "rotate(0deg)"));
+
+          // Open the clicked answer
+          answer.style.maxHeight = answer.scrollHeight + "px";
+          arrow.style.transform = "rotate(180deg)"; // Rotate arrow up
+        }
+      }
+    </script>
+  </body>
+</html>

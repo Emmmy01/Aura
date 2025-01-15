@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-dy4/eXG9gXDF/+hSTmwK5ye9Jp2K1uP7i9vOfYROFt+QxwHYtKA+lDFWVs2uaXYsj3nPhTH5LV3rYKYxstYHSg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #000; /* Black background */
+        color: #fff; /* White text */
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .header .icon {
+        font-size: 24px;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .product-image {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .product-image img {
+        width: 100%;
+        height: 39vh;
+        max-width: 300px;
+        border-radius: 8px;
+      }
+
+      .small-variations {
+        display: flex;
+        gap: 10px;
+      }
+
+      .small-variations img {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        cursor: pointer;
+        border: 2px solid transparent;
+      }
+
+      .small-variations img:hover {
+        border: 2px solid #007bff; /* Highlight on hover */
+      }
+
+      .details {
+        margin-bottom: 20px;
+      }
+
+      .details h1 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .price {
+        font-size: 18px;
+        color: #00f; /* Blue text for discount price */
+      }
+
+      .original-price {
+        text-decoration: line-through;
+        color: #888;
+        margin-right: 10px;
+      }
+
+      .shipping-info {
+        margin-top: 10px;
+        font-size: 14px;
+      }
+
+      .ratings {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .size-options,
+      .variations {
+        margin: 20px 0;
+      }
+
+      .size-options button {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        margin-right: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .size-options button:hover {
+        background-color: #555;
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #111;
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .footer button {
+        background-color: #007bff; /* Blue button */
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .footer button:hover {
+        background-color: #0056b3;
+      }
+
+      .icon-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .icon-container i {
+        font-size: 20px;
+        cursor: pointer;
+        color: #fff;
+      }
+
+      .icon-container i:hover {
+        color: #007bff;
+      }
+      #share-options {
+        margin-top: 10px;
+        background: #000;
+        color: #fff;
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      #share-options a {
+        display: block;
+        text-decoration: none;
+        color: #00aaff; /* Light blue links */
+        margin: 5px 0;
+      }
+
+      #share-options a i {
+        margin-right: 8px;
+      }
+      /* General Styling */
+      body {
+        font-family: Arial, sans-serif;
+        background: #000;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+      }
+
+      .product-details {
+        display: flex;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .description,
+      .reviews {
+        flex: 1;
+        padding: 15px;
+        border: 1px solid #333;
+        border-radius: 5px;
+        background: #111;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+      }
+
+      /* Description Section */
+      .description h3 {
+        color: #1e90ff;
+        margin-bottom: 10px;
+      }
+
+      .description ul {
+        padding-left: 20px;
+      }
+
+      .description li {
+        margin-bottom: 5px;
+      }
+
+      /* Reviews Section */
+      .reviews h3 {
+        color: #1e90ff;
+        margin-bottom: 10px;
+      }
+
+      #reviews-container {
+        max-height: 200px;
+        overflow-y: auto;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #333;
+        padding-bottom: 10px;
+      }
+
+      /* Individual Review Style */
+      .review-item {
+        margin-bottom: 15px;
+      }
+
+      .review-item strong {
+        color: #eff3f7;
+      }
+
+      .review-item p {
+        color: #ddd;
+        margin: 5px 0;
+      }
+
+      /* Add Review Form */
+      .add-review {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      #review-text {
+        background: #222;
+        color: #fff;
+        border: 1px solid #333;
+        border-radius: 5px;
+        padding: 10px;
+        resize: none;
+      }
+
+      #submit-review {
+        align-self: flex-end;
+        background: #1e90ff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      #submit-review:hover {
+        background: #1c7ed6;
+      }
+
+      /* Scrollbar Styling */
+      #reviews-container::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      #reviews-container::-webkit-scrollbar-thumb {
+        background: black;
+        border-radius: 4px;
+      }
+
+      #reviews-container::-webkit-scrollbar-thumb:hover {
+        background: black;
+      }
+
+      .container {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+      }
+
+      .delivery-section {
+        background-color: black;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 30px;
+      }
+
+      .delivery-title {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+      }
+
+      .delivery-info {
+        margin-top: 20px;
+      }
+
+      .info-item {
+        margin-bottom: 15px;
+      }
+
+      .info-item i {
+        margin-right: 10px;
+        color: white;
+      }
+
+      .info-item p {
+        margin: 5px 0;
+        line-height: 1.6;
+      }
+
+      .info-item h3 {
+        color: white;
+        margin-bottom: 5px;
+        font-size: 20px;
+      }
+
+      .info-item span {
+        font-weight: bold;
+        color: lightgrey;
+      }
+
+      .important-note {
+        background-color: #444;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+
+      .important-note h4 {
+        margin-top: 0;
+        color: lightyellow;
+      }
+
+      .important-note p {
+        color: white;
+      }
+
+      .delivery-options {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .delivery-options div {
+        background-color: black;
+        padding: 15px;
+        border-radius: 5px;
+        width: 30%;
+      }
+
+      .delivery-options div h4 {
+        color: lightblue;
+      }
+
+      .delivery-options div p {
+        color: lightgrey;
+      }
+
+      .delivery-options div .icon {
+        font-size: 2em;
+        color: white;
+      }
+      @media (max-width: 768px) {
+        .container {
+          width: 85%;
+        }
+
+        .delivery-title {
+          font-size: 1.5em;
+        }
+
+        .delivery-info {
+          margin-top: 15px;
+        }
+
+        .info-item {
+          margin-bottom: 10px;
+        }
+
+        .delivery-options {
+          display: block;
+        }
+
+        .delivery-options div {
+          width: 100%;
+          margin-bottom: 15px;
+        }
+
+        .delivery-options div:last-child {
+          margin-bottom: 0;
+        }
+
+        .important-note {
+          padding: 15px;
+        }
+
+        .important-note h4 {
+          font-size: 1.2em;
+        }
+      }
+
+      /* Media Queries for very small screens (phones) */
+      @media (max-width: 480px) {
+        .delivery-title {
+          font-size: 1.2em;
+        }
+
+        .info-item h3 {
+          font-size: 1.1em;
+        }
+
+        .info-item p {
+          font-size: 0.9em;
+        }
+
+        .delivery-options div h4 {
+          font-size: 1.1em;
+        }
+
+        .delivery-options div p {
+          font-size: 0.9em;
+        }
+
+        .important-note p {
+          font-size: 0.9em;
+        }
+
+        .important-note h4 {
+          font-size: 1em;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .product-details {
+          flex-direction: column;
+        }
+
+        .description,
+        .reviews {
+          flex: unset;
+          margin-bottom: 20px;
+        }
+      }
+      .footer a {
+        text-decoration: none;
+        color: white;
+      }
+
+      .love-icon {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: gray;
+      }
+
+      .love-icon.active {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <a href="index.php"> <i class="fas fa-arrow-left icon"></i></a>
+
+        <h2>Details</h2>
+        <div class="icon-container">
+          <i id="share-button" class="fas fa-share-alt"></i>
+          <button class="love-icon" data-id="2">
+            <i class="fas fa-heart"></i>
+          </button>
+        </div>
+      </div>
+      <script>
+        // Script for Products Page
+        const loveIcons = document.querySelectorAll(".love-icon");
+
+        // Load existing favorites from localStorage
+        let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+        // Mark previously favorited items
+        favorites.forEach((id) => {
+          const icon = document.querySelector(`.love-icon[data-id="${id}"]`);
+          if (icon) icon.classList.add("active");
+        });
+
+        // Add to favorites
+        loveIcons.forEach((icon) => {
+          icon.addEventListener("click", () => {
+            const productId = icon.dataset.id;
+
+            // Toggle favorite status
+            if (favorites.includes(productId)) {
+              favorites = favorites.filter((id) => id !== productId);
+              icon.classList.remove("active");
+            } else {
+              favorites.push(productId);
+              icon.classList.add("active");
+            }
+
+            // Save favorites to localStorage
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+          });
+        });
+      </script>
+      <script>
+        document
+          .getElementById("share-button")
+          .addEventListener("click", async () => {
+            if (navigator.share) {
+              // Try to use the Web Share API
+              try {
+                await navigator.share({
+                  title: "Check out this product!",
+                  text: "Look at this amazing product I found!",
+                  url: window.location.href, // Use current page URL
+                });
+              } catch (error) {
+                console.error("Error using Web Share API:", error);
+              }
+            } else {
+              // Fallback: Show share options (WhatsApp, Facebook, etc.)
+              document.getElementById("share-options").style.display = "block";
+            }
+          });
+      </script>
+      <div id="share-options" style="display: none">
+        <a
+          href="https://wa.me/?text=Check%20this%20out:%20https://example.com"
+          target="_blank"
+        >
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+        <a
+          href="https://www.facebook.com/sharer/sharer.php?u=https://example.com"
+          target="_blank"
+        >
+          <i class="fab fa-facebook"></i> Facebook
+        </a>
+        <a
+          href="mailto:?subject=Check%20this%20out&body=Look%20at%20this:%20https://example.com"
+        >
+          <i class="fas fa-envelope"></i> Email
+        </a>
+      </div>
+
+      <!-- Product Image -->
+      <div class="product-image">
+        <img id="main-image" src="Sexy.jpg" alt="Product" />
+        <div class="small-variations">
+          <img src="Sexy.jpg" alt="Red" data-src="Sexy.jpg" />
+          <img src="Sexy.jpg" alt="Green" data-src="Sexy.jpg" />
+          <img src="Sexy.jpg" alt="Blue" data-src="Sexy.jpg" />
+        </div>
+      </div>
+
+      <!-- Product Details -->
+      <div class="details">
+        <h1>Vintage Women Gown</h1>
+        <p>Brand: Fashion</p>
+        <p class="price">
+          <span class="original-price">₦65,000</span>
+          ₦60,000 (-5%)
+        </p>
+
+        <p class="ratings">⭐⭐⭐⭐⭐</p>
+      </div>
+
+      <!-- Size Options -->
+      <div class="size-options">
+        <h3>Size</h3>
+        <button>S</button>
+        <button>M</button>
+        <button>L</button>
+        <button>XL</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <a href="index.html"><i class="fas fa-home"></i></a>
+      <i class="fas fa-phone-alt"></i>
+      <button onclick="addToCart('Vintage Gown',60000, 'Sexy.jpg')">
+        <i class="fas fa-cart-plus"></i> Add to Cart
+      </button>
+    </div>
+    <script>
+      // JavaScript code to manage the cart
+      let cart = JSON.parse(localStorage.getItem("cart")) || []; // Load cart from local storage
+
+      function addToCart(name, price, image) {
+        // Resolve the full path of the image
+        const imageSrc =
+          image.startsWith("http") || image.startsWith("data:")
+            ? image
+            : `./${image}`;
+
+        const existingItem = cart.find((item) => item.name === name);
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          const item = { name, price, image: imageSrc, quantity: 1 };
+          cart.push(item);
+        }
+
+        // Save cart to local storage
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Redirect to the cart page
+        window.location.href = "cart.html"; // Adjust the path as needed
+      }
+    </script>
+
+    <script>
+      // JavaScript to change the main image
+      const mainImage = document.getElementById("main-image");
+      const variationImages = document.querySelectorAll(
+        ".small-variations img"
+      );
+
+      variationImages.forEach((img) => {
+        img.addEventListener("click", () => {
+          const newSrc = img.getAttribute("data-src");
+          mainImage.setAttribute("src", newSrc);
+        });
+      });
+    </script>
+    <div class="product-details">
+      <!-- Product Description -->
+      <div class="description">
+        <h3>Product Description</h3>
+        <p>
+          This dress is the epitome of versatility and elegance, designed to
+          suit any occasion. With a flattering fit and crafted from soft,
+          breathable fabric, it offers both comfort and sophistication. Features
+          include:
+        </p>
+        <ul>
+          <li>Breathable and lightweight material</li>
+          <li>Durable rubber sole for traction</li>
+          <li>Available in various colors and sizes</li>
+        </ul>
+        <p>Perfect for casual outings, sports, and everyday wear.</p>
+      </div>
+      <div class="product-details">
+        <!-- Customer Reviews -->
+      </div>
+
+      <!-- Customer Reviews -->
+      <div class="reviews">
+        <h3>Customer Reviews</h3>
+
+        <div class="review-summary">
+          <strong>4.5</strong>
+          <i class="fas fa-star"></i> (12 Reviews)
+        </div>
+
+        <div id="reviews-container">
+          <!-- Example review items -->
+          <div class="review-item">
+            <strong>Victoria Adewumi</strong>
+            <span>⭐⭐⭐⭐⭐</span>
+            <p>Amazing dress! Super comfortable and stylish.</p>
+          </div>
+          <div class="review-item">
+            <strong>Esther Adegoke</strong>
+            <span>⭐⭐⭐⭐</span>
+            <p>Good value for the price. Would recommend!</p>
+          </div>
+
+          <!-- Reviews will dynamically appear here -->
+        </div>
+        <div class="add-review">
+          <textarea
+            id="review-text"
+            placeholder="Write your review here..."
+            rows="3"
+          ></textarea>
+          <button id="submit-review">
+            <i class="fas fa-paper-plane"></i> Submit Review
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      const reviewsContainer = document.getElementById("reviews-container");
+      const reviewText = document.getElementById("review-text");
+      const submitReviewButton = document.getElementById("submit-review");
+
+      // Load existing reviews from localStorage
+      const savedReviews = JSON.parse(localStorage.getItem("reviews")) || [];
+      savedReviews.forEach((review) => displayReview(review));
+
+      // Function to display a single review
+      function displayReview(content) {
+        const reviewItem = document.createElement("div");
+        reviewItem.classList.add("review-item");
+
+        const reviewerName = document.createElement("strong");
+        reviewerName.textContent = "Anonymous User";
+        reviewItem.appendChild(reviewerName);
+
+        const reviewParagraph = document.createElement("p");
+        reviewParagraph.textContent = content;
+        reviewItem.appendChild(reviewParagraph);
+
+        reviewsContainer.appendChild(reviewItem);
+      }
+
+      // Handle new review submission
+      submitReviewButton.addEventListener("click", () => {
+        const reviewContent = reviewText.value.trim();
+
+        if (reviewContent !== "") {
+          // Save to local storage
+          savedReviews.push(reviewContent);
+          localStorage.setItem("reviews", JSON.stringify(savedReviews));
+
+          // Display the new review
+          displayReview(reviewContent);
+
+          // Clear the input field
+          reviewText.value = "";
+        } else {
+          alert("Please write something before submitting.");
+        }
+      });
+    </script>
+
+    <div class="container">
+      <div class="delivery-section">
+        <h2 class="delivery-title">Delivery Information</h2>
+
+        <!-- Delivery Details -->
+        <div class="delivery-info">
+          <div class="info-item">
+            <i class="fas fa-truck icon"></i>
+            <h3>Door Delivery</h3>
+            <p>
+              Our Door delivery option ensures your products arrive within
+              <span>2 business days</span> after placing your order. Delivery
+              Fees ₦500
+            </p>
+          </div>
+
+          <div class="info-item">
+            <i class="fas fa-clock icon"></i>
+            <h3>Delivery Hours</h3>
+            <p>
+              Orders are delivered between <span>10:00 AM - 6:00 PM</span> on
+              weekdays. We do not deliver on weekends or public holidays.
+            </p>
+          </div>
+
+          <div class="info-item">
+            <i class="fas fa-map-marker-alt icon"></i>
+            <h3>Delivery Locations</h3>
+            <p>We currently deliver to most regions within the school.</p>
+          </div>
+        </div>
+
+        <!-- Delivery Options -->
+
+        <!-- Important Notes -->
+        <div class="important-note">
+          <h4>Important Notes</h4>
+          <p>
+            For any delivery-related issues, you can contact our support team
+            via the customer service page. Please ensure you provide accurate
+            delivery details to avoid any delays.
+          </p>
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+  </body>
+</html>

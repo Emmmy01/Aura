@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jumping Rabbit Cursor</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        height: 100vh;
+        background-color: #f0f0f0;
+        overflow: hidden;
+        cursor: none; /* Hide default cursor */
+      }
+
+      .rabbit {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background: url("https://img.icons8.com/material/24/rabbit.png")
+          no-repeat center/contain;
+        pointer-events: none; /* Prevent interactions */
+        transform: translate(-50%, -50%);
+        animation: jump 0.5s ease-in-out infinite; /* Repeated jump animation */
+      }
+
+      /* Jumping animation */
+      @keyframes jump {
+        0%,
+        100% {
+          transform: translateY(0) scale(1); /* Normal position */
+        }
+        50% {
+          transform: translateY(-20px) scale(1.1); /* Jumping upward */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="rabbit"></div>
+
+    <script>
+      const rabbit = document.querySelector(".rabbit");
+
+      // Track cursor movement
+      document.addEventListener("mousemove", (e) => {
+        const x = e.pageX;
+        const y = e.pageY;
+
+        // Move rabbit to cursor position
+        rabbit.style.left = `${x}px`;
+        rabbit.style.top = `${y}px`;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Reviews</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+      }
+
+      .review-section {
+        margin-top: 30px;
+      }
+
+      .review-item {
+        background-color: #333;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+      }
+
+      .review-item strong {
+        color: lightblue;
+      }
+
+      textarea {
+        width: 100%;
+        height: 100px;
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #555;
+        background-color: #444;
+        color: white;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        border: 1px solid #555;
+        background-color: #444;
+        color: white;
+      }
+
+      .submit-btn {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: blue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .submit-btn:hover {
+        background-color: darkblue;
+      }
+
+      .reviews {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Product Reviews</h1>
+      <div class="review-section">
+        <input type="text" id="review-name" placeholder="Enter your name..." />
+        <textarea
+          id="review-text"
+          placeholder="Write your review..."
+        ></textarea>
+        <button class="submit-btn" id="submit-review">
+          <i class="fas fa-paper-plane"></i> Submit Review
+        </button>
+
+        <div id="reviews" class="reviews">
+          <!-- Reviews will be dynamically displayed here -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Get DOM elements
+      const reviewName = document.getElementById("review-name");
+      const reviewText = document.getElementById("review-text");
+      const submitButton = document.getElementById("submit-review");
+      const reviewsContainer = document.getElementById("reviews");
+
+      // Load reviews from localStorage (if any)
+      function loadReviews() {
+        const reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+        reviews.forEach((review) => {
+          const reviewDiv = document.createElement("div");
+          reviewDiv.classList.add("review-item");
+          reviewDiv.innerHTML = `<strong>${review.name}</strong><p>${review.text}</p>`;
+          reviewsContainer.appendChild(reviewDiv);
+        });
+      }
+
+      // Add a review
+      submitButton.addEventListener("click", function () {
+        const name = reviewName.value.trim();
+        const reviewContent = reviewText.value.trim();
+
+        if (name && reviewContent) {
+          // Save review to localStorage
+          const reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+          reviews.push({ name: name, text: reviewContent });
+          localStorage.setItem("reviews", JSON.stringify(reviews));
+
+          // Display new review
+          const reviewDiv = document.createElement("div");
+          reviewDiv.classList.add("review-item");
+          reviewDiv.innerHTML = `<strong>${name}</strong><p>${reviewContent}</p>`;
+          reviewsContainer.prepend(reviewDiv);
+
+          // Clear the input fields
+          reviewName.value = "";
+          reviewText.value = "";
+        } else {
+          alert("Please enter your name and review!");
+        }
+      });
+
+      // Initial load of reviews
+      loadReviews();
+    </script>
+  </body>
+</html>

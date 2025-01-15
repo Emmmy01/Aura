@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Favorites</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0a0a0a;
+      margin: 0;
+      color: white;
+      padding: 0;
+    }
+
+    #favorites-list {
+      max-width: 800px;
+      margin: 2rem auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .favorite-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .favorite-item img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .favorite-item .details {
+      flex-grow: 1;
+    }
+
+    .favorite-item .details h3 {
+      margin: 0;
+      font-size: 0.5rem;
+    }
+
+    .favorite-item .details p {
+      margin: 0.2rem 0;
+      color: #6c757d;
+    }
+
+    .favorite-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: white;
+      padding: 1rem;
+      background-color: rgb(10, 10, 10);
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .favorite-item a.product-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: inherit;
+      flex-grow: 1;
+    }
+
+    .favorite-item img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .favorite-item .details {
+      flex-grow: 1;
+    }
+
+    .favorite-item .details h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .favorite-item .details p {
+      margin: 0.2rem 0;
+      color: #6c757d;
+    }
+
+    .remove-btn {
+      background-color: #0364c4;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      background-color: #27598a;
+    }
+    a {
+      text-decoration: none;
+      color: white;
+    }
+    .top {
+      text-align: center;
+      margin-bottom: 40px;
+      background: #1365b777;
+      margin-top: 20px;
+      border-radius: 50px;
+      border-top-left-radius: 40px;
+      border-bottom-right-radius: 50px;
+      border-bottom-left-radius: 70px;
+      padding: 20px 10px;
+    }
+    h1 {
+      text-align: center;
+      color: white;
+    }
+    .clg {
+      color: white;
+      text-decoration: none;
+      padding: 20px;
+      font-size: 25px;
+    }
+    footer {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #000;
+      padding: 10px 0;
+      z-index: 1;
+    }
+    footer i {
+      font-size: 1.5rem;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1;
+    }
+    footer i:hover {
+      color: #007bff;
+    }
+    .solo i {
+      color: #007bff;
+    }
+
+    .remove-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      background-color: #007bff;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .no-favorites {
+      text-align: center;
+      font-size: 1.5rem;
+      color: #6c757d;
+      margin-top: 2rem;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+      animation: fadeIn 1s ease-in-out;
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: black;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      border-top: 1px solid rgb(5, 5, 5);
+      box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    footer a {
+      text-decoration: none;
+      color: #333;
+      text-align: center;
+      font-size: 14px;
+      flex: 1;
+    }
+
+    footer a i {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    footer a span {
+      display: block;
+      font-size: 12px;
+      color: white;
+    }
+    .solo span {
+      color: #007bff;
+    }
+
+    #cart-count {
+      position: absolute;
+      top: -8px;
+      right: 21%;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 6px;
+      display: inline-block;
+    }
+    .space2 {
+      position: relative;
+      flex: 1;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <br />
+
+    <a class="clg" href="index.php"> <i class="fas fa-arrow-left icon"></i></a>
+    <div class="top">
+      <h1>Wishlist</h1>
+    </div>
+
+    <main id="favorites-list">
+      <!-- Favorites will be dynamically loaded here -->
+    </main>
+
+    <a href="${product.link}" class="product-link">
+      <!-- Product details here -->
+    </a>
+
+    <script src="favorites.js"></script>
+  </body>
+
+  <!-- Footer -->
+  <footer>
+    <a href="index.php">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <div class="space2">
+      <a href="cart.html">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Cart</span>
+        <span id="cart-count">0</span>
+      </a>
+    </div>
+    <a class="solo" href="love.html">
+      <i class="fas fa-heart"></i>
+      <span>Favorite</span>
+    </a>
+    <a href="user.php">
+      <i class="fas fa-user"></i>
+      <span>Account</span>
+    </a>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const favoritesList = document.getElementById("favorites-list");
+      const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+      // Sample product data (replace with actual data from a backend or API)
+      const products = [
+        {
+          id: "1",
+          name: "Nike Men Seakers",
+          image: "Best Shoes For Men Nike.jpg",
+          description: "Find comfort in the 2025 Nike Men Seakers",
+          link: "details.html",
+        },
+        {
+          id: "2",
+          name: "Vintage Gown",
+          image: "Sexy.jpg",
+          description: "Classic Vintage Gown for women",
+          link: "vintagegown.html",
+        },
+        {
+          id: "3",
+          name: "Cargo Jumpsuit",
+          image: "STRAP SHOULDER CARGO JUMPSUIT.jpg",
+          description: "Beige Cargo Jumpsuit With Pocket",
+          link: "cargojumpsuit.html",
+        },
+      ];
+
+      // Function to display "No favorites yet!" message
+      const displayNoFavoritesMessage = () => {
+        favoritesList.innerHTML = `
+      <p class="no-favorites">
+        No wishlist yet!
+      </p>
+    `;
+      };
+
+      // Check and display favorites or message on page load
+      if (favorites.length === 0) {
+        displayNoFavoritesMessage();
+        return;
+      }
+
+      // Render favorites
+      favorites.forEach((id) => {
+        const product = products.find((item) => item.id === id);
+        if (product) {
+          favoritesList.innerHTML += `
+        <div class="favorite-item" data-id="${product.id}">
+          <a href="${product.link}" class="product-link">
+            <img src="${product.image}" alt="${product.name}">
+            <div class="details">
+              <h3>${product.name}</h3>
+              <p>${product.description}</p>
+            </div>
+          </a>
+          <button class="remove-btn">Remove</button>
+        </div>
+      `;
+        }
+      });
+
+      // Remove from favorites functionality
+      favoritesList.addEventListener("click", (e) => {
+        if (e.target.classList.contains("remove-btn")) {
+          const item = e.target.closest(".favorite-item");
+          const productId = item.dataset.id;
+
+          // Remove from favorites array
+          const updatedFavorites = favorites.filter((id) => id !== productId);
+          localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+
+          // Remove item from DOM
+          item.remove();
+
+          // Show message if no favorites left
+          if (updatedFavorites.length === 0) {
+            displayNoFavoritesMessage();
+          }
+        }
+      });
+    });
+  </script>
+  <script>
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const totalItems = cart.length; // Get the number of unique items
+      const cartCountElement = document.getElementById("cart-count");
+
+      if (totalItems > 0) {
+        cartCountElement.textContent = totalItems;
+        cartCountElement.style.display = "inline"; // Show the count
+      } else {
+        cartCountElement.textContent = ""; // Clear the count
+        cartCountElement.style.display = "none"; // Hide the count
+      }
+    }
+
+    // Call updateCartCount initially to set the correct count on page load
+    updateCartCount();
+    // Initialize AOS
+    AOS.init();
+  </script>
+</html>
