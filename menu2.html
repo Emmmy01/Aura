@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f8f9fa;
+    text-align: center;
+}
+
+.menu-container {
+    margin: 50px auto;
+    max-width: 900px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.menu-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 250px;
+    transition: transform 0.3s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+}
+
+.menu-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.menu-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+}
+
+.menu-card p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.items-count {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+</style>
+<body>
+
+    <div class="menu-container">
+        <h1>Menu</h1>
+        <div class="menu-grid">
+            <!-- Menu Items (Will be generated dynamically using JavaScript) -->
+        </div>
+    </div>
+
+    <script>
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const menuData = [
+        { name: "Autumn Menu", image: "Hibachi_Fried_Rice-removebg-preview.png", items: 8 },
+        { name: "Salads", image: "Generative_AI_pizza_isolated_on_white_background___Premium_photo-removebg-preview.png", items: 13 },
+        { name: "Snacks", image: "images/snacks.jpg", items: 8 },
+        { name: "Sushi", image: "images/sushi.jpg", items: 12 },
+        { name: "Burgers", image: "images/burgers.jpg", items: 6 },
+        { name: "Soups", image: "images/soups.jpg", items: 12 },
+        { name: "Main", image: "images/main.jpg", items: 23 },
+        { name: "Side Dishes", image: "images/side-dishes.jpg", items: 6 },
+        { name: "Bakery", image: "images/bakery.jpg", items: 6 },
+        { name: "Desserts", image: "images/desserts.jpg", items: 11 },
+        { name: "Drinks", image: "images/drinks.jpg", items: 6 },
+    ];
+
+    const menuGrid = document.querySelector(".menu-grid");
+
+    menuData.forEach(item => {
+        const card = document.createElement("div");
+        card.classList.add("menu-card");
+
+        card.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p>New! Seasonal menu in our cafes.</p>
+            <span class="items-count">Items: ${item.items}</span>
+        `;
+
+        menuGrid.appendChild(card);
+    });
+});
+
+    </script>
+</body>
+</html>

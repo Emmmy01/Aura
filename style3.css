@@ -1,0 +1,88 @@
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Form Container */
+.form-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+/* Heading */
+h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Labels */
+label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Input Fields */
+input[type="text"], input[type="number"], input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Input Focus Effect */
+input:focus {
+    background:rgb(252, 251, 252);
+    outline: none;
+}
+
+/* Image Preview */
+#imagePreview {
+    max-width: 100%;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+/* Submit Button */
+button {
+    background:rgb(14, 6, 74);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    margin-top: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background:rgb(14, 6, 74);
+}
+
+/* Back Button */
+.back-btn {
+    display: block;
+    margin-top: 15px;
+    text-decoration: none;
+    color:rgb(14, 6, 74);
+    font-weight: bold;
+}
+
+.back-btn:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Add New Product</h2>
+        <form action="add_product.php" method="post" enctype="multipart/form-data">
+            
+            <label>Product Name:</label>
+            <input type="text" name="name" required placeholder="Enter product name">
+
+            <label>Product Image:</label>
+            <input type="file" name="image" id="imageUpload" required>
+            <img id="imagePreview" src="#" alt="Image Preview" style="display: none;">
+
+            <label>Price (₦):</label>
+            <input type="number" name="price" required placeholder="Enter price">
+
+            <label>Details Page:</label>
+            <input type="text" name="details_page" required placeholder="e.g., product1.html">
+
+            <label>Rating:</label>
+            <input type="number" name="rating" step="0.1" required placeholder="Enter rating (e.g., 4.5)">
+
+            <button type="submit">Add Product</button>
+        </form>
+
+        <a href="admin_dashboard.php" class="back-btn">← Back to Dashboard</a>
+    </div>
+
+    <script>
+        // Preview uploaded image
+        document.getElementById("imageUpload").addEventListener("change", function(event) {
+            let reader = new FileReader();
+            reader.onload = function() {
+                let img = document.getElementById("imagePreview");
+                img.src = reader.result;
+                img.style.display = "block";
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        });
+    </script>
+
+</body>
+</html>

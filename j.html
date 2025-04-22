@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Page - MR SEE CHICKEN FOOD</title>
+  <style>
+    .form-container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+    h2, h3 { text-align: center; }
+    label { display: block; margin-top: 10px; }
+    input, select, button {
+      width: 100%; padding: 8px; margin-top: 5px;
+      border: 1px solid #ccc; border-radius: 5px;
+    }
+    button { background-color: #e91e63; color: white; font-weight: bold; }
+    #order-summary p { margin: 5px 0; }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>Delivery Form</h2>
+  <form id="orderForm" action="order_submit.php" method="POST">
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" required />
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="phone">Phone Number</label>
+    <input type="text" id="phone" name="phone" required />
+
+    <label for="delivery-method">Delivery Method</label>
+    <select id="delivery-method" name="delivery-method" required>
+      <option value="">Select Method</option>
+      <option value="pickup">Pickup</option>
+      <option value="delivery">Home Delivery</option>
+    </select>
+
+    <div id="addressField" style="display: none;">
+      <label for="address">Enter Your Home Address</label>
+      <input type="text" id="address" name="address" placeholder="123 Street, Osogbo" />
+    </div>
+
+    <div id="pickupStations" style="display: none;">
+      <label for="pickup-location">Select Pickup Station</label>
+      <select id="pickup-location" name="pickup-location">
+        <option value="station1">📍 Second Gate Opposite Q09 Hotel</option>
+        <option value="station2">📍 Small Gate Opposite Uncle K Hostel</option>
+      </select>
+    </div>
+
+    <input type="hidden" name="order-summary" id="order-summary" />
+    <input type="hidden" name="total" id="total" />
+
+    <button id="confirmButton" type="submit">Confirm</button>
+  </form>
+</div>
+
+<div class="form-container">
+  <h3>Order Summary</h3>
+  <div id="order-summary-display"></div>
+</div>
+
+<div id="Paymentform" class="form-container">
+  <h2>Payment Form</h2>
+  <form id="order-form">
+    <label for="payerName">Full Name</label>
+    <input type="text" id="payerName" name="payerName" required />
+
+    <label for="payerEmail">Email</label>
+    <input type="email" id="payerEmail" name="payerEmail" required />
+
+    <label for="totalAmount">Total Amount (₦)</label>
+    <input type="text" id="totalAmount" name="totalAmount" readonly />
+
+    <button type="button" onclick="payWithPaystack()">Pay</button>
+  </form>
+</div>
+
+<!-- SCRIPTS -->
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const orderSummaryInput = document.getElementById("order-summary");
+  const totalInput = document.getElementById("total");
+  const displaySummary = document.getElementById("order-summary-display");
+  const totalAmount = document.getElementById("totalAmount");
+
+  let subtotal = 0;
+  let summaryText = "";
+
+  if (cart.length === 0) {
+    displaySummary.innerHTML = "<p>Your cart is empty.</p>";
+    totalInput.value = "0.00";
+    totalAmount.value = "0.00";
+  } else {
+    cart.forEach((item) => {
+      let itemTotal = item.price * item.quantity;
+      subtotal += itemTotal;
+      summaryText += `${item.name} x ${item.quantity} - ₦${itemTotal.toFixed(2)}\n`;
+      displaySummary.innerHTML += `<p>${item.name} x ${item.quantity} - ₦${itemTotal.toFixed(2)}</p>`;
+    });
+
+    const tax = 300;
+    const finalTotal = subtotal + tax;
+
+    orderSummaryInput.value = summaryText;
+    totalInput.value = finalTotal.toFixed(2);
+    totalAmount.value = finalTotal.toFixed(2);
+
+    localStorage.setItem("total", finalTotal.toFixed(2));
+  }
+
+  // Auto-fill address from savedAddress in localStorage
+  const savedAddress = localStorage.getItem("selectedAddress");
+  if (savedAddress) {
+    document.getElementById("address").value = savedAddress;
+    document.getElementById("delivery-method").value = "delivery";
+    document.getElementById("addressField").style.display = "block";
+    localStorage.removeItem("selectedAddress");
+  }
+});
+
+// Delivery method toggling
+document.getElementById("delivery-method").addEventListener("change", function () {
+  let method = this.value;
+  document.getElementById("addressField").style.display = method === "delivery" ? "block" : "none";
+  document.getElementById("pickupStations").style.display = method === "pickup" ? "block" : "none";
+});
+
+// PAYSTACK PAYMENT
+function payWithPaystack() {
+  let payerName = document.getElementById("payerName").value.trim();
+  let payerEmail = document.getElementById("payerEmail").value.trim();
+  let totalAmount = document.getElementById("totalAmount").value.trim();
+
+  if (!totalAmount || isNaN(totalAmount) || totalAmount <= 0) {
+    alert("Invalid amount.");
+    return;
+  }
+
+  let amountInKobo = parseInt(totalAmount) * 100;
+
+  var handler = PaystackPop.setup({
+    key: "pk_test_e1f63a3ba7522fab44967e242e26e0cd1d6fbdd2",
+    email: payerEmail,
+    amount: amountInKobo,
+    currency: "NGN",
+    ref: "TXN_" + Math.floor(Math.random() * 1000000000 + 1),
+    callback: function (response) {
+      let paymentRef = response.reference;
+
+      fetch("payment_callback.php?reference=" + paymentRef)
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === "success") {
+            alert("Payment successful!");
+            localStorage.removeItem("cart");
+            window.location.href = data.redirect;
+          } else {
+            alert("Payment verification failed.");
+          }
+        })
+        .catch(error => console.error("Error verifying payment:", error));
+    },
+    onClose: function () {
+      alert("Transaction canceled.");
+    },
+  });
+
+  handler.openIframe();
+}
+</script>
+
+</body>
+</html>
+
+// Paystack payment
+function payWithPaystack() {
+    let payerName = document.getElementById("payerName").value.trim();
+    let payerEmail = document.getElementById("payerEmail").value.trim();
+    let totalAmount = parseFloat(document.getElementById("total").value.trim());
+
+    if (!payerName || !payerEmail || isNaN(totalAmount) || totalAmount <= 0) {
+        alert("Please fill all fields and ensure total is valid.");
+        return;
+    }
+
+    let handler = PaystackPop.setup({
+        key: 'pk_test_xxxxxxxxxxxxxxxx', // Replace with your public key
+        email: payerEmail,
+        amount: totalAmount * 100,
+        currency: "NGN",
+        ref: 'MC-' + Math.floor((Math.random() * 1000000000) + 1),
+        metadata: {
+            custom_fields: [
+                {
+                    display_name: payerName,
+                    variable_name: "order_name",
+                    value: payerEmail
+                }
+            ]
+        },
+        callback: function(response) {
+            alert("Payment successful! Reference: " + response.reference);
+            localStorage.removeItem("cart");
+            location.reload();
+        },
+        onClose: function() {
+            alert("Transaction was not completed, window closed.");
+        }
+    });
+
+    handler.openIframe();
+}
+</script>

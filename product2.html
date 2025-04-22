@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Item UI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 10vh;
+            background: #f8f8f8;
+            
+        }
+        .container {
+            background: white;
+            width:100%;
+            padding: 20px;
+            height: 100%;
+            border-radius: 20px;
+            background: #f8f8f8;
+            position: relative;
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .nav i {
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .image-container {
+            position: relative;
+            text-align: left;
+        }
+        .image-container img {
+            width: 100%;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: -30px;
+        }
+        .controls {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            background: rgb(10, 10, 10);
+            padding: 5px 15px;
+            color: #f3f3f3;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .controls button {
+            border: none;
+            background: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #f3f3f3;
+        }
+        h2 {
+            text-align: left;
+            margin: 15px 0;
+        }
+        p {
+            text-align: left;
+            color: gray;
+            font-size: 14px;
+        }
+        .details {
+            display: flex;
+            justify-content: left;
+            margin: 15px 0;
+            gap: 60px;
+        }
+        .details div {
+            text-align: left;
+            font-size: 14px;
+        }
+        .ingredients {
+            display: flex;
+            justify-content: left;
+            gap: 40px;
+            margin: 15px 0;
+        }
+        .ingredients i {
+            font-size: 24px;
+            background: #f3f3f3;
+            padding: 10px;
+            border-radius: 50%;
+        }
+        .price {
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            margin: 10px 0;
+            white-space: nowrap;
+            background: rgba(214, 214, 214, 0.235);
+            color: rgb(13, 13, 13);
+            padding: 8px 19px;
+            border-radius: 18px;
+        }
+        .add-to-cart {
+            display: flex;
+            justify-content: center;
+        }
+        .add-to-cart button {
+            background: black;
+            color: white;
+            border: none;
+            padding: 7px 17px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+        .pa{
+            display: flex;
+            gap: 60px;
+        }
+        h5{
+            font-size: 20px;
+            color: rgba(44, 44, 44, 0.988);;
+        }
+        a{
+            color: black;
+        }
+        .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -12px;
+        background: red;
+        color: white;
+        font-size: 10px;
+        padding: 3px 6px;
+        border-radius: 60%;
+    }
+
+    .cart-count-badge {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: red;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+@media (min-width: 788px) {
+.connt{
+    display: flex;
+    justify-content: center;
+}
+.image-container{
+    top: -60px;
+}
+.cont2{
+    bottom: -30px;
+    margin-right: 100px;
+    
+}
+.cont2 p{
+    white-space: wrap;
+    width: 300px;
+}
+.image-container img {
+    width: 90%;
+    top: 50px;
+    margin-top: 40px;
+}
+.controls{
+    margin-left: 200px;
+}
+        }
+        @keyframes crazy-animation {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.1) rotate(10deg);
+    }
+    50% {
+        transform: scale(1.2) rotate(-10deg);
+    }
+    75% {
+        transform: scale(1.1) rotate(5deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.image-container img {
+    animation: crazy-animation 3s ease-in-out 1; /* Runs once every 10 seconds */
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="index.php"><i class="fa fa-arrow-left"></i></a> 
+            <a href="cart.php"> 
+                <i class="fa fa-shopping-bag"></i> 
+                <span id="cart-count" class="cart-count-badge" style="display: none;">0</span>
+            </a>
+        </div>
+        <div class="connt">
+        <div class="image-container">
+            <img src="A_plate_of_fried_chicken_and_french_fries_with_ketchup___Premium_AI-generated_image-removebg-preview.png" alt="French Fries">
+            <div class="controls">
+                <button id="decrease">-</button>
+                <span id="quantity">1</span>
+                <button id="increase">+</button>
+            </div>
+        </div>
+        <div class="cont2">
+        <br><br>
+        <h2>French Fries + Fried chicken</h2>
+        <p>A plate of fried chicken and french fries with ketchup, lightly salted and served hot, perfect as a snack or side dish.</p>
+    
+        <div class="details">
+            <div><i class="fa fa-star" style="color: gold;"></i> 4.7</div>
+            <div><i class="fa fa-fire" style="color: red;"></i> 320 Kcal</div>
+            <div><i class="fa fa-clock" style="color: red;"></i> 15 -17 Min</div>
+        </div>
+    
+        <h5>Ingredients</h5>
+        <div class="ingredients">
+            <i class="fas fa-seedling"></i>  <!-- Closest match for potatoes -->
+            <i class="fas fa-drumstick-bite"></i>  <!-- Fried Chicken -->
+        
+            <i class="fas fa-wine-bottle"></i>   <!-- Ketchup / Sauce -->
+            <i class="fas fa-oil-can"></i>  <!-- Cooking Oil -->
+        </div>
+        
+    
+        <div class="pa">
+            <div class="price">Total Price <br> ₦<span id="total-price">3,000</span></div>
+            <div class="add-to-cart">
+                <button id="add-to-cart" 
+                    data-name="Fries + Chicken"
+                    data-price="3000"
+                    data-image="A_plate_of_fried_chicken_and_french_fries_with_ketchup___Premium_AI-generated_image-removebg-preview.png">
+                    <i class="fa fa-shopping-bag"></i> Add To Cart
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    function triggerAnimation() {
+            foodImage.classList.add("crazy-animation");
+
+            // Remove animation class after it completes to trigger it again
+            setTimeout(() => {
+                foodImage.classList.remove("crazy-animation");
+            }, 2000); // The duration of the animation (2 seconds)
+        }
+
+        // Trigger the animation every 10 seconds
+        setInterval(triggerAnimation, 5000); // 10000ms = 10 seconds
+
+    // Get elements
+    const quantitySpan = document.getElementById("quantity");
+    const totalPriceSpan = document.getElementById("total-price");
+    const increaseBtn = document.getElementById("increase");
+    const decreaseBtn = document.getElementById("decrease");
+    const addToCartBtn = document.getElementById("add-to-cart");
+
+    let basePrice = parseInt(addToCartBtn.getAttribute("data-price"));
+    let quantity = 1;
+
+    // Update total price
+    function updateTotalPrice() {
+        let totalPrice = basePrice * quantity;
+        totalPriceSpan.textContent = totalPrice.toLocaleString();
+    }
+
+    // Increase Quantity
+    increaseBtn.addEventListener("click", function () {
+        quantity++;
+        quantitySpan.textContent = quantity;
+        updateTotalPrice();
+    });
+
+    // Decrease Quantity
+    decreaseBtn.addEventListener("click", function () {
+        if (quantity > 1) {
+            quantity--;
+            quantitySpan.textContent = quantity;
+            updateTotalPrice();
+        }
+    });
+
+    // Add to Cart
+    addToCartBtn.addEventListener("click", function () {
+        let name = this.getAttribute("data-name");
+        let image = this.getAttribute("data-image");
+        let price = basePrice;
+        
+        let existingItem = cart.find(item => item.name === name);
+
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            cart.push({ name, price, image, quantity });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Redirect to cart after adding
+        window.location.href = "cart.php";
+    });
+
+    updateTotalPrice(); // Initialize total price
+});
+
+</script>    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const notification = document.getElementById("cart-notification");
+    
+            document.querySelectorAll(".add-to-cart").forEach(button => {
+                button.addEventListener("click", function () {
+                    let name = this.getAttribute("data-name");
+                    let price = parseInt(this.getAttribute("data-price").replace(",", ""));
+                    let image = this.getAttribute("data-image");
+    
+                    let existingItem = cart.find(item => item.name === name);
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        cart.push({ name, price, image, quantity: 1 });
+                    }
+    
+                    localStorage.setItem("cart", JSON.stringify(cart));
+    
+                    // Show custom notification
+                    notification.style.display = "block";
+                    notification.innerHTML = `<p>${name} added to cart!</p>`;
+    
+                    setTimeout(() => {
+                        notification.style.display = "none";
+                        window.location.href = "cart.html"; // Redirect to cart
+                    }, 1500);
+                });
+            });
+        });
+    </script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const minusBtn = document.querySelector(".controls button:first-child");
+            const plusBtn = document.querySelector(".controls button:last-child");
+            const quantitySpan = document.querySelector(".controls span");
+    
+            let quantity = 1;
+    
+            plusBtn.addEventListener("click", function () {
+                quantity++;
+                updateQuantity();
+            });
+    
+            minusBtn.addEventListener("click", function () {
+                if (quantity > 1) {
+                    quantity--;
+                    updateQuantity();
+                }
+            });
+    
+            function updateQuantity() {
+                quantitySpan.textContent = quantity;
+            }
+        });
+        
+    </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const minusBtn = document.querySelector(".controls button:first-child");
+        const plusBtn = document.querySelector(".controls button:last-child");
+        const quantitySpan = document.querySelector(".controls span");
+        const totalPriceElement = document.querySelector(".price");
+        
+        const pricePerItem = 3000; // Set the price of one item
+        let quantity = 1;
+
+        plusBtn.addEventListener("click", function () {
+            quantity++;
+            updateQuantity();
+        });
+
+        minusBtn.addEventListener("click", function () {
+            if (quantity > 1) {
+                quantity--;
+                updateQuantity();
+            }
+        });
+
+        function updateQuantity() {
+            quantitySpan.textContent = quantity;
+            const totalPrice = pricePerItem * quantity;
+            totalPriceElement.innerHTML = `Total Price <br> ₦${totalPrice.toLocaleString()}`;
+        }
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+   let cart = JSON.parse(localStorage.getItem("cart")) || [];
+   const cartCountEl = document.getElementById("cart-count");
+
+   function updateCartCount() {
+       let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+       if (totalItems > 0) {
+           cartCountEl.style.display = "flex";
+           cartCountEl.textContent = totalItems;
+       } else {
+           cartCountEl.style.display = "none";
+       }
+   }
+
+   updateCartCount(); // Call on page load
+
+   // Modify "Add to Cart" function to update count dynamically
+   document.querySelectorAll(".add-to-cart").forEach(button => {
+       button.addEventListener("click", function () {
+           let name = this.getAttribute("data-name");
+           let price = parseInt(this.getAttribute("data-price").replace(",", ""));
+           let image = this.getAttribute("data-image");
+
+           let existingItem = cart.find(item => item.name === name);
+           if (existingItem) {
+               existingItem.quantity += 1;
+           } else {
+               cart.push({ name, price, image, quantity: 1 });
+           }
+
+           localStorage.setItem("cart", JSON.stringify(cart));
+           updateCartCount();
+       });
+   });
+
+   // Modify "Remove Item" function to update count when an item is removed
+   window.removeItem = function(index) {
+       cart.splice(index, 1);
+       localStorage.setItem("cart", JSON.stringify(cart));
+       updateCartDisplay();
+       updateCartCount();
+   };
+
+   // Modify "Change Quantity" function to update count
+   window.changeQuantity = function(index, change) {
+       cart[index].quantity += change;
+       if (cart[index].quantity <= 0) {
+           cart.splice(index, 1);
+       }
+       localStorage.setItem("cart", JSON.stringify(cart));
+       updateCartDisplay();
+       updateCartCount();
+   };
+});
+
+
+ </script>
+    
+</body>
+</html>

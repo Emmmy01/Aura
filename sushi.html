@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushi - MR SEE CHICKEN</title>
+   
+   
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: none;
+    margin: 10px;
+  
+}
+
+.website-link {
+    font-size: 12px;
+    color: gray;
+}
+
+.location {
+    font-size: 14px;
+}
+
+.user-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.search-bar input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px auto;
+    display: block;
+    border-radius: 20px;
+    border: 1px solid lightgray;
+}
+
+.popular-food {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+    margin-top: -20px;
+}
+
+.categories {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 10px;
+}
+
+.categories button {
+    border: none;
+    background: #fff;
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+.discount-banner {
+   
+    color: white;
+    padding: 9px;
+    border-radius: 30px;
+    margin: 8px;
+    height: 110px;
+}
+.discount-banner h1{
+    color: rgb(253, 251, 251);
+    font-family: 15px;
+    margin-top: -110px;
+}
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.food-item {
+    background: white;
+    padding: 20px;
+    margin: 5px;
+    height: 170px;
+    border-radius: 30px;
+}
+
+.food-item img {
+    width: 100%;
+    height: 120px;
+    border-radius: 10px;
+}
+
+.rating {
+    display: block;
+    margin-top: 0px;
+}
+.sand img{
+    margin-top: 15px;
+    width: 90%;
+    height: 100px;
+}
+
+
+.food-item h3{
+    font-size: 13px;
+    text-align: left;
+    display: flex;
+    justify-content: left;
+}
+.Menu{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    align-items: center;
+    margin-top: -35px;
+    
+}
+.top-bar h3{
+    font-size: 13px;
+}
+.view-all{
+    color: gray;
+    text-decoration: none;
+}
+.food-item {
+    background: white;
+    padding: 15px;
+    border-radius: 15px; /* Rounded corners */
+    position: relative; /* For absolute positioning */
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Wishlist Icon */
+.food-item .wishlist {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 18px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    
+}
+
+.love-icon.active {
+    color: red;
+}
+
+/* Price and Rating */
+.price-rating {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: -18px;
+    border-radius: 10px;
+    padding: 0px;
+}
+
+.price-rating p {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    font-size: 12px;
+}
+.food-categories {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    white-space: nowrap;
+    padding: 10px;
+    scrollbar-width: none; /* Hide scrollbar for better design */
+    -ms-overflow-style: none;
+}
+
+.food-categories::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in Webkit browsers */
+}
+
+.category {
+    background: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 13px;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    flex: 0 0 auto; /* Prevents shrinking */
+}
+
+.category.active {
+    background: #FFD700;
+    color: black;
+}
+.discount-banner img{
+    width: 100%;
+    border-radius: 30px;
+    height: 130px;
+}
+.love-icon {
+    color: white;
+    -webkit-text-stroke: 2px gray; /* Gray border */
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.love-icon.active {
+    color: red;
+    -webkit-text-stroke: 0px; /* Remove border when active */
+}
+.wishlist.active{
+    color: red;
+    -webkit-text-stroke: 0px; /* Remove border when active */
+}
+.discount-banner h1{
+    color: rgb(6, 6, 6);
+    -webkit-text-stroke: 1px rgb(252, 252, 249); /* Gray border */
+}
+footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #f6f5f5;
+    padding: 10px 0;
+    z-index: 1;
+  }
+  footer i {
+    font-size: 0.2rem;
+    color: gray;
+    cursor: pointer;
+    z-index: 1;
+  }
+  footer i:hover {
+    color: #080808;
+  }
+  .solo i {
+    color: #111111;
+  }
+  
+
+footer {
+position: fixed;
+bottom: 0;
+left: 0;
+width: 100%;
+background-color: rgb(254, 253, 253);
+display: flex;
+justify-content: space-around;
+align-items: center;
+padding: 10px 0;
+border-top: 1px solid rgb(214, 213, 213);
+box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+z-index: 1000;
+}
+
+footer a {
+text-decoration: none;
+color: #333;
+text-align: center;
+font-size: 10px;
+flex: 1;
+}
+
+footer a i {
+font-size: 18px;
+display: block;
+margin-bottom: 5px;
+}
+
+footer a span {
+display: block;
+font-size: 10px;
+color: gray;
+}
+.solo span {
+color: #050505;
+}
+/* HEADER STYLES */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #fafaf8; /* Yellow Theme */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 35px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.nav-menu {
+    display: flex;
+}
+
+.nav-menu ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    padding: 0;
+}
+
+.nav-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* MENU TOGGLE BUTTON */
+.menu-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    display: none; /* Hidden by default */
+}
+
+/* SIDEBAR MENU (FOR SMALL SCREENS) */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background: #fefefd;
+    padding-top: 60px;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    text-align: center;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+    .menu-toggle {
+        display: block;
+    }
+}
+.logo img {
+    height: 100px;
+    width: 100px;
+}
+
+
+
+
+
+.food-item {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.food-item img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.order-btn {
+    color: rgb(6, 6, 6);
+    -webkit-text-stroke: 0.4px rgb(239, 239, 232); /* Gray border */
+ 
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.order-btn:hover {
+    color: rgb(13, 13, 13);
+    background: #f7f7f5;
+ 
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.sushiname{
+    font-size: 17px;
+    color: rgb(6, 6, 6);
+    -webkit-text-stroke:0.5px rgb(252, 252, 249); /* Gray border */
+}
+.back-button{
+    text-decoration: none;
+    color: rgb(6, 6, 6);
+    -webkit-text-stroke: 0.4px rgb(252, 252, 249); /* Gray border */
+ 
+}
+.top-header{
+    margin-top: 4px;
+}
+
+
+.food-item2 {
+    background: white;
+    padding: 20px;
+    margin: 5px;
+    height: auto;
+    border-radius: 30px;
+}
+
+
+
+
+.food-item2 img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+
+
+.food-item2 h3{
+    font-size: 13px;
+    text-align: left;
+    display: flex;
+    justify-content: left;
+}
+
+.food-item2 {
+    background: white;
+    padding: 15px;
+    border-radius: 15px; /* Rounded corners */
+    position: relative; /* For absolute positioning */
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Wishlist Icon */
+.food-item2 .wishlist {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 18px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    
+}
+
+.co{
+    height: 225px;
+}
+
+.no{
+    top: -30px;
+}
+
+
+
+
+</style>
+<body>
+    <header class="top-header">
+        <div class="logo">
+          <a href="index.php"><img src="Black_and_White_Modern_Minimalist_Streetwear_Logo-removebg-preview.png" alt="MR SEE CHICKEN Logo"></a>  
+        </div>
+              
+    
+       
+        <button class="menu-toggle">&#9776;</button> <!-- ☰ Menu Button -->
+  
+        <nav class="nav-menu">
+            
+            <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Menu</a></li>
+                <li><a href="#">Order</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+
+    </header>
+    
+    <!-- Sidebar Menu -->
+    <div class="sidebar">
+        <button class="close-btn">&times;</button> <!-- Close Button -->
+        <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Menu</a></li>
+            <li><a href="#">Order</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+    
+
+
+<header class="top-header">
+    <a href="index.php" class="back-button"><i class="fas fa-arrow-left"></i> Back</a>
+    <h1 class="sushiname">Jellof Rice 🍛</h1>
+</header>
+<section class="food-grid">
+    <div class="food-item2 co">
+        <button class="wishlist"><i class="fas fa-heart love-icon"></i>
+        </button>
+        <img src="How_to_Make_Jollof_Rice_in_5_Easy_Steps_-_Ev_s_Eats-removebg-preview.png" alt="Ichiraku Ramen">
+        <h3>Jellof Rice</h3>
+        <div class="price-rating">
+            <p>₦2,000</p>
+            <span class="rating">⭐ 4.5</span>
+        </div>
+        <button class="order-btn">Order Now</button>
+    </div>
+    <div class="food-item2">
+        <button class="wishlist"><i class="fas fa-heart love-icon"></i>
+        </button>
+        <img src="52c0de13-d033-4a37-afaf-1c5fb1688d4e-removebg-preview.png" alt="Ichiraku Ramen">
+        <h3>Party Jellof Rice</h3>
+        <div class="price-rating">
+            <p>₦3,000</p>
+            <span class="rating">⭐ 4.0</span>
+        </div>
+        <button class="order-btn">Order Now</button>
+    </div>
+    <div class="food-item2 no">
+        <button class="wishlist"><i class="fas fa-heart love-icon"></i>
+        </button>
+        <img src="Africa_jollof_rice-removebg-preview.png" alt="Ichiraku Ramen">
+        <h3>Jellof Rice + Meat</h3>
+        <div class="price-rating">
+            <p>₦4,000</p>
+            <span class="rating">⭐ 5.0</span>
+        </div>
+        <button class="order-btn">Order Now</button>
+    </div>
+    <div class="food-item2">
+        <button class="wishlist"><i class="fas fa-heart love-icon"></i>
+        </button>
+        <img src="uploads/How_To_Make_Nigerian_Jollof_Rice-removebg-preview.png" alt="Ichiraku Ramen">
+        <h3>Jellof Rice + Meat</h3>
+        <div class="price-rating">
+            <p>₦5,000</p>
+            <span class="rating">⭐ 5.0</span>
+        </div>
+        <button class="order-btn">Order Now</button>
+    </div>          
+    
+    <div class="food-item2 no">
+        <button class="wishlist"><i class="fas fa-heart love-icon"></i>
+        </button>
+        <img src="How_to_Make_Jollof_Rice_in_5_Easy_Steps_-_Ev_s_Eats-removebg-preview.png" alt="Ichiraku Ramen">
+        <h3>Jellof Rice + Chicken</h3>
+        <div class="price-rating">
+            <p>₦5,000</p>
+            <span class="rating">⭐ 5.0</span>
+        </div>
+        <button class="order-btn">Order Now</button>
+    </div>      
+   
+   
+    <div class="food-item2">
+        <button class="wishlist"><i class="fas fa-heart love-icon"></i>
+        </button>
+        <img src="Africa_jollof_rice-removebg-preview.png" alt="Ichiraku Ramen">
+        <h3>Jellof Rice + Meat</h3>
+        <div class="price-rating">
+            <p>₦4,000</p>
+            <span class="rating">⭐ 5.0</span>
+        </div>
+        <button class="order-btn">Order Now</button>
+    </div>
+    <div class="food-item2 no">
+        <button class="wishlist"><i class="fas fa-heart love-icon"></i>
+        </button>
+        <img src="How_to_Make_Jollof_Rice_in_5_Easy_Steps_-_Ev_s_Eats-removebg-preview.png" alt="Ichiraku Ramen">
+        <h3>Jellof Rice + Chicken</h3>
+        <div class="price-rating">
+            <p>₦5,000</p>
+            <span class="rating">⭐ 5.0</span>
+        </div>
+        <button class="order-btn">Order Now</button>
+    </div>          
+   
+    <div class="food-item2">
+        <button class="wishlist"><i class="fas fa-heart love-icon"></i>
+        </button>
+        <img src="How_to_Make_Jollof_Rice_in_5_Easy_Steps_-_Ev_s_Eats-removebg-preview.png" alt="Ichiraku Ramen">
+        <h3>Jellof Rice + Chicken</h3>
+        <div class="price-rating">
+            <p>₦5,000</p>
+            <span class="rating">⭐ 5.0</span>
+        </div>
+        <button class="order-btn">Order Now</button>
+    </div>      
+
+</section>
+<br>
+<br>
+<br>
+
+
+<script src="script.js"></script>
+</body>
+
+
+</html>

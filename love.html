@@ -1,397 +1,821 @@
+<?php
+include 'authentication.php';
+  
+?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Favorites</title>
-    <link rel="stylesheet" href="styles.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-  </head>
-  <style>
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+</head>
+<style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #0a0a0a;
-      margin: 0;
-      color: white;
-      padding: 0;
-    }
+    font-family: Arial, sans-serif;
+    background: white;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    
 
-    #favorites-list {
-      max-width: 800px;
-      margin: 2rem auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
+}
 
-    .favorite-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+    /* General Styles */
 
-    .favorite-item img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
 
-    .favorite-item .details {
-      flex-grow: 1;
-    }
+/* Food Item Card */
+.food-item {
+    display: flex;
+    background: white;
+    border-radius: 10px;
+    padding: 37px;
+    margin: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    height: 50px;
+    position: relative;
+    text-align: center;
+    transition: transform 0.3s;
+    gap: 40px;
+    justify-content: center;
+    
+}
+.add-to-cart{
+    background: #FFD700;
+    padding: 10px;
+    border: none;
+    border-radius: 57px;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    
+    top: 12px;
+    right: 14px;
+    font-size: 12px;
+    font-weight: bold;
+    width: 100%;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    white-space: nowrap
+    ;
+}
 
-    .favorite-item .details h3 {
-      margin: 0;
-      font-size: 0.5rem;
-    }
+.food-item:hover {
+    transform: scale(1.05);
+}
 
-    .favorite-item .details p {
-      margin: 0.2rem 0;
-      color: #6c757d;
-    }
+.food-item img {
+    width: 70px;
+  display: flex;
+  justify-content: center;
+    height: 60px;
+    border-radius: 8px;
+}
 
-    .favorite-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      color: white;
-      padding: 1rem;
-      background-color: rgb(10, 10, 10);
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+.food-item h3 {
+    font-size: 13px;
+    margin: 5px 0;
+    color: #333;
+    
+}
 
-    .favorite-item a.product-link {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      text-decoration: none;
-      color: inherit;
-      flex-grow: 1;
-    }
+.price-rating {
+    display: block;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 12px;
+    padding: 16px;
+    color: #666;
+    gap: 19px;
+    
+}
 
-    .favorite-item img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
+.price-rating p {
+    font-weight: bold;
+    color: #000;
+}
 
-    .favorite-item .details {
-      flex-grow: 1;
-    }
+.rating {
+    color: #f39c12;
+    font-weight: bold;
+}
 
-    .favorite-item .details h3 {
-      margin: 0;
-      font-size: 1.2rem;
-    }
+/* Wishlist (Heart Icon) */
+.wishlist {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    transition: color 0.3s;
+}
 
-    .favorite-item .details p {
-      margin: 0.2rem 0;
-      color: #6c757d;
-    }
+.love-icon {
+    color: grey;
+    transition: color 0.3s ease-in-out;
+}
 
-    .remove-btn {
-      background-color: #0364c4;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+.love-icon.active {
+    color: red;
+}
 
-    .remove-btn:hover {
-      background-color: #27598a;
+/* Wishlist Page (love.html) */
+#wishlist-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#wishlist-container .food-item {
+    width: 78%;
+}
+
+/* Navigation Link */
+
+
+a:hover {
+    color: #0056b3;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: none;
+    margin: 10px;
+  
+}
+
+.website-link {
+    font-size: 12px;
+    color: gray;
+}
+
+.location {
+    font-size: 14px;
+}
+
+.user-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.search-bar input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px auto;
+    display: block;
+    border-radius: 20px;
+    border: 1px solid lightgray;
+}
+
+footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 70%;
+    background: #f6f5f5;
+    padding: 10px 0;
+    z-index: 1;
+  }
+  footer i {
+    font-size: 0.2rem;
+    color: gray;
+    cursor: pointer;
+    z-index: 1;
+  }
+  footer i:hover {
+    color: #080808;
+  }
+  .solo i {
+    color: #111111;
+  }
+  
+
+footer {
+position: fixed;
+bottom: 0;
+left: 0;
+width: 100%;
+background-color: rgb(254, 253, 253);
+display: flex;
+justify-content: space-around;
+align-items: center;
+padding: 10px 0;
+border-top: 1px solid rgb(214, 213, 213);
+box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+z-index: 1000;
+}
+
+footer a {
+text-decoration: none;
+color: #333;
+text-align: center;
+font-size: 10px;
+flex: 1;
+}
+
+footer a i {
+font-size: 18px;
+display: block;
+margin-bottom: 5px;
+}
+
+footer a span {
+display: block;
+font-size: 10px;
+color: gray;
+}
+.solo span {
+color: #050505;
+}
+/* HEADER STYLES */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #fafaf8; /* Yellow Theme */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 35px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.nav-menu {
+    display: flex;
+}
+
+.nav-menu ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    padding: 0;
+}
+
+.nav-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* MENU TOGGLE BUTTON */
+.menu-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    display: none; /* Hidden by default */
+}
+
+/* SIDEBAR MENU (FOR SMALL SCREENS) */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background: #fefefd;
+    padding-top: 60px;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    text-align: center;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
     }
-    a {
-      text-decoration: none;
-      color: white;
+    .menu-toggle {
+        display: block;
     }
-    .top {
-      text-align: center;
-      margin-bottom: 40px;
-      background: #1365b777;
-      margin-top: 20px;
-      border-radius: 50px;
-      border-top-left-radius: 40px;
-      border-bottom-right-radius: 50px;
-      border-bottom-left-radius: 70px;
-      padding: 20px 10px;
-    }
-    h1 {
-      text-align: center;
-      color: white;
-    }
-    .clg {
-      color: white;
-      text-decoration: none;
-      padding: 20px;
-      font-size: 25px;
-    }
-    footer {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: #000;
-      padding: 10px 0;
-      z-index: 1;
+}
+.logo img {
+    height: 100px;
+    width: 100px;
+}
+
+
+
+@media (min-width: 788px) {
+.image-content img{
+    width: 409px;
+    height: 400px;
+}
+footer{
+        display: none;
     }
     footer i {
-      font-size: 1.5rem;
-      color: #fff;
-      cursor: pointer;
-      z-index: 1;
-    }
-    footer i:hover {
-      color: #007bff;
-    }
-    .solo i {
-      color: #007bff;
-    }
-
-    .remove-btn {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .remove-btn:hover {
-      background-color: #007bff;
-    }
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
+       display: none;
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+  
+}
+.site-footer {
+    background: #FFD700;
+    color: rgb(7, 7, 7);
+    text-align: center;
+    padding: 50px 0;
+}
+.site-footer .container {
+    max-width: 1200px;
+    margin: auto;
+}
+.footer-top h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 3px  solid ;
+}
+.footer-top p {
+    font-size: 16px;
+    opacity: 0.8;
+}
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+.footer-links ul li a {
+    text-decoration: none;
+    color: rgb(10, 10, 10);
+    font-size: 16px;
+}
+.footer-links ul li a:hover {
+    color: #FFD700;
+}
+.footer-social {
+    margin-bottom: 20px;
+}
+.footer-social a {
+    display: inline-block;
+    margin: 0 10px;
+}
+.footer-social img {
+    width: 30px;
+    height: 30px;
+}
+.footer-copy {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.food-item h3 {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.price-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.rating {
+    color: #ffcc00;
+}
+
+/* Wishlist heart button */
+.wishlist {
+    border: none;
+    background: none;
+    font-size: 18px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.wishlist i {
+    color: grey;
+    transition: color 0.3s;
+}
+
+.wishlist i.active {
+    color: red; /* Changes heart color when active */
+}
+
+/* Grid layout: 2 per row on small screens, 4 per row on larger screens */
+
+.whish h1{
+    font-size: 21px;
+     text-align: left;
+   
+ padding: 5px;
+ margin: 15px;
+ margin-top: 35px;
+   border-bottom: 1px  solid whitesmoke;
+}
+.remove-wishlist {
+       
+        color: rgb(249, 3, 3);
+    
+        border-radius: 40px;
+      
+        width: 100px;
+        font-size: 15px;
+        height: 25px;
+   
+     
     }
-    .no-favorites {
-      text-align: center;
-      font-size: 1.5rem;
-      color: #6c757d;
-      margin-top: 2rem;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
-      animation: fadeIn 1s ease-in-out;
+    .bak a{
+        color: #666;
+       
     }
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: black;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 10px 0;
-      border-top: 1px solid rgb(5, 5, 5);
-      box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
+    .food-container{
+        display: flex;
+        gap: 15px;
+        
     }
 
-    footer a {
-      text-decoration: none;
-      color: #333;
-      text-align: center;
-      font-size: 14px;
-      flex: 1;
-    }
+    .add-to-cart{
+    background: #FFD700;
+    padding: 10px;
+    border: none;
+    border-radius: 57px;
+    cursor: pointer;
+}
+.view-details{
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+a{
+    text-decoration: none;
+    color: #080808;
+}
 
-    footer a i {
-      font-size: 20px;
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    footer a span {
-      display: block;
-      font-size: 12px;
-      color: white;
-    }
-    .solo span {
-      color: #007bff;
-    }
-
-    #cart-count {
-      position: absolute;
-      top: -8px;
-      right: 21%;
-      background-color: red;
-      color: white;
-      border-radius: 50%;
-      font-size: 12px;
-      font-weight: bold;
-      padding: 2px 6px;
-      display: inline-block;
-    }
-    .space2 {
-      position: relative;
-      flex: 1;
-      text-align: center;
-    }
-  </style>
-  <body>
-    <br />
-
-    <a class="clg" href="index.php"> <i class="fas fa-arrow-left icon"></i></a>
-    <div class="top">
-      <h1>Wishlist</h1>
-    </div>
-
-    <main id="favorites-list">
-      <!-- Favorites will be dynamically loaded here -->
-    </main>
-
-    <a href="${product.link}" class="product-link">
-      <!-- Product details here -->
-    </a>
-
-    <script src="favorites.js"></script>
-  </body>
-
-  <!-- Footer -->
-  <footer>
-    <a href="index.php">
-      <i class="fas fa-home"></i>
-      <span>Home</span>
-    </a>
-    <div class="space2">
-      <a href="cart.html">
-        <i class="fas fa-shopping-cart"></i>
-        <span>Cart</span>
-        <span id="cart-count">0</span>
-      </a>
-    </div>
-    <a class="solo" href="love.html">
-      <i class="fas fa-heart"></i>
-      <span>Favorite</span>
-    </a>
-    <a href="user.php">
-      <i class="fas fa-user"></i>
-      <span>Account</span>
-    </a>
-  </footer>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const favoritesList = document.getElementById("favorites-list");
-      const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-      // Sample product data (replace with actual data from a backend or API)
-      const products = [
-        {
-          id: "1",
-          name: "Nike Men Seakers",
-          image: "Best Shoes For Men Nike.jpg",
-          description: "Find comfort in the 2025 Nike Men Seakers",
-          link: "details.html",
-        },
-        {
-          id: "2",
-          name: "Vintage Gown",
-          image: "Sexy.jpg",
-          description: "Classic Vintage Gown for women",
-          link: "vintagegown.html",
-        },
-        {
-          id: "3",
-          name: "Cargo Jumpsuit",
-          image: "STRAP SHOULDER CARGO JUMPSUIT.jpg",
-          description: "Beige Cargo Jumpsuit With Pocket",
-          link: "cargojumpsuit.html",
-        },
-      ];
-
-      // Function to display "No favorites yet!" message
-      const displayNoFavoritesMessage = () => {
-        favoritesList.innerHTML = `
-      <p class="no-favorites">
-        No wishlist yet!
-      </p>
-    `;
-      };
-
-      // Check and display favorites or message on page load
-      if (favorites.length === 0) {
-        displayNoFavoritesMessage();
-        return;
-      }
-
-      // Render favorites
-      favorites.forEach((id) => {
-        const product = products.find((item) => item.id === id);
-        if (product) {
-          favoritesList.innerHTML += `
-        <div class="favorite-item" data-id="${product.id}">
-          <a href="${product.link}" class="product-link">
-            <img src="${product.image}" alt="${product.name}">
-            <div class="details">
-              <h3>${product.name}</h3>
-              <p>${product.description}</p>
-            </div>
-          </a>
-          <button class="remove-btn">Remove</button>
+#wishlist-count {
+    position: absolute;
+    top: 0;
+    right: 6px;
+    background: red;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    
+    transform: translate(50%, -50%); /* Center on top-right */
+}
+.cart-icon-container {
+    position: relative; /* Ensures the badge positions correctly */
+    display: inline-block; /* Keeps it inline */
+}
+.wishlist-icon-container {
+    position: relative; /* Ensures the badge positions correctly */
+    display: inline-block; /* Keeps it inline */
+}
+.cart-count-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: red;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    
+    transform: translate(50%, -50%); /* Center on top-right */
+}
+</style>
+<body>
+    <header class="top-header">
+        <div class="logo">
+          <a href="index.php"><img src="Black_and_White_Modern_Minimalist_Streetwear_Logo-removebg-preview.png" alt="MR SEE CHICKEN Logo"></a>  
         </div>
-      `;
+              
+    
+       
+        <button class="menu-toggle">&#9776;</button> <!-- ☰ Menu Button -->
+  
+        <nav class="nav-menu">
+            
+            <ul>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="#">Order</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+    </header>
+    
+    <!-- Sidebar Menu -->
+    <div class="sidebar">
+        <button class="close-btn">&times;</button> <!-- Close Button -->
+        <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="#">Order</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+    
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Wishlist</title>
+        <link rel="stylesheet" href="styles.css">
+        <script src="wishlist.js" defer></script>
+    </head>
+    <body>
+        <div class="whish">
+            <h1> Your Favorite</h1>
+        </div>
+      
+        <div id="wishlist-container" class="food-container"></div>
+    <div class="bak">
+        <a href="index.php">⬅ Back to Home</a>
+    </div>
+    
+    
+    </body>
+    </html>
+    
+
+    <br>
+    <br>
+    <br>
+    <footer>
+        <a href="index.php">
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </a>
+        
+        
+        <a class="solo" href="love.html">
+            <div class="wishlist-icon-container">
+          <i class="fas fa-heart"></i>
+          <span id="wishlist-count"  style="display: none;">0</span>
+          <span>Favorite</span>
+          </div>
+        </a>
+        <a href="cart.php">
+            <div class="cart-icon-container">
+            <i class="fa fa-shopping-cart"></i>
+            <span id="cart-count" class="cart-count-badge" style="display: none;">0</span>
+            <span>Cart</span>
+        </div>
+          </a>
+        <a href="ussr.php">
+          <i class="fas fa-user"></i>
+          <span>Account</span>
+        </a>
+      </footer>
+      <script>
+     document.addEventListener("DOMContentLoaded", function () {
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const wishlistContainer = document.getElementById("wishlist-container");
+
+    function renderWishlist() {
+        wishlistContainer.innerHTML = "";
+
+        if (wishlist.length === 0) {
+            wishlistContainer.innerHTML = "<p>No favorite yet 💔</p>";
+            return;
         }
-      });
 
-      // Remove from favorites functionality
-      favoritesList.addEventListener("click", (e) => {
-        if (e.target.classList.contains("remove-btn")) {
-          const item = e.target.closest(".favorite-item");
-          const productId = item.dataset.id;
+        wishlist.forEach((item, index) => {
+            const foodItem = document.createElement("div");
+            foodItem.classList.add("food-item");
 
-          // Remove from favorites array
-          const updatedFavorites = favorites.filter((id) => id !== productId);
-          localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+            foodItem.innerHTML = `
+            <div class="food-container">
+          <a href="${item.detailsPage}" class="view-details">
+                <img src="${item.image}" alt="${item.name}">
+                <h3>${item.name}</h3>
+                 <p>₦${item.price.toLocaleString()}</p>
+                  </a>
+                <div class="price-rating">
+                   
+                     <button class="add-to-cart" onclick="addToCart('${item.name}', '${item.price}', '${item.image}')">
+                            Add to Cart
+                        </button>
+                           <button class="wishlist remove-wishlist" data-index="${index}">
+                Remove
+                </button>
+                    
+                    
+                </div>
+              
+                </div>
+            `;
 
-          // Remove item from DOM
-          item.remove();
+            wishlistContainer.appendChild(foodItem);
+        });
 
-          // Show message if no favorites left
-          if (updatedFavorites.length === 0) {
-            displayNoFavoritesMessage();
-          }
-        }
-      });
-    });
-  </script>
-  <script>
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const totalItems = cart.length; // Get the number of unique items
-      const cartCountElement = document.getElementById("cart-count");
-
-      if (totalItems > 0) {
-        cartCountElement.textContent = totalItems;
-        cartCountElement.style.display = "inline"; // Show the count
-      } else {
-        cartCountElement.textContent = ""; // Clear the count
-        cartCountElement.style.display = "none"; // Hide the count
-      }
+        // Add event listeners to remove buttons
+        document.querySelectorAll(".remove-wishlist").forEach(button => {
+            button.addEventListener("click", function () {
+                const index = this.getAttribute("data-index");
+                wishlist.splice(index, 1);
+                localStorage.setItem("wishlist", JSON.stringify(wishlist));
+                renderWishlist(); // Re-render after removing
+            });
+        });
     }
 
-    // Call updateCartCount initially to set the correct count on page load
-    updateCartCount();
-    // Initialize AOS
-    AOS.init();
-  </script>
+    renderWishlist();
+    window.addToCart = function(name, price, image) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+         
+            // Check if the item already exists in the cart
+            let existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1; // Increment quantity
+            } else {
+                cart.push({ name, price, image, quantity: 1 });
+            }
+            
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert(`${name} added to cart!`);
+        };
+
+        window.removeFromWishlist = function(index) {
+            wishlist.splice(index, 1);
+            localStorage.setItem("wishlist", JSON.stringify(wishlist));
+            renderWishlist();
+        };
+});
+
+      </script>
+      
+
+
+   
+
+     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const cartItemsContainer = document.getElementById("cart-items");
+            const subtotalEl = document.getElementById("subtotal");
+            const totalEl = document.getElementById("total");
+           
+  
+         
+            const cartCountEl = document.getElementById("cart-count");
+    
+            function updateCartCount() {
+                let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                if (totalItems > 0) {
+                    cartCountEl.style.display = "flex";
+                    cartCountEl.textContent = totalItems;
+                } else {
+                    cartCountEl.style.display = "none";
+                }
+            }
+    
+            updateCartCount(); // Call on page load
+    
+            // Modify "Add to Cart" function to update count dynamically
+            document.querySelectorAll(".add-to-cart").forEach(button => {
+                button.addEventListener("click", function () {
+                    let name = this.getAttribute("data-name");
+                    let price = parseInt(this.getAttribute("data-price").replace(",", ""));
+                    let image = this.getAttribute("data-image");
+    
+                    let existingItem = cart.find(item => item.name === name);
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        cart.push({ name, price, image, quantity: 1 });
+                    }
+    
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    updateCartCount();
+                });
+            });
+    
+            // Modify "Remove Item" function to update count when an item is removed
+            window.removeItem = function(index) {
+                cart.splice(index, 1);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                updateCartDisplay();
+                updateCartCount();
+            };
+    
+            // Modify "Change Quantity" function to update count
+            window.changeQuantity = function(index, change) {
+                cart[index].quantity += change;
+                if (cart[index].quantity <= 0) {
+                    cart.splice(index, 1);
+                }
+                localStorage.setItem("cart", JSON.stringify(cart));
+                updateCartDisplay();
+                updateCartCount();
+            };
+        });
+    
+            
+    
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const wishlistCountEl = document.getElementById("wishlist-count");
+
+    // Function to update the wishlist count
+    function updateWishlistCount() {
+        wishlistCountEl.textContent = wishlist.length;
+        wishlistCountEl.style.display = wishlist.length > 0 ? "flex" : "none";
+    }
+
+    // Update wishlist count on page load
+    updateWishlistCount();
+
+    // Function to add or remove from wishlist
+    document.querySelectorAll(".wishlist").forEach(button => {
+        button.addEventListener("click", function () {
+            let itemContainer = button.closest(".food-container");
+            let name = itemContainer.querySelector("h3").textContent;
+            let price = parseInt(itemContainer.querySelector("p").textContent.replace("₦", "").replace(",", ""));
+            let image = itemContainer.querySelector("img").src;
+            let rating = itemContainer.querySelector(".rating")?.textContent?.replace("⭐ ", "") || "0";
+
+            let existingItem = wishlist.find(item => item.name === name);
+            if (existingItem) {
+                wishlist = wishlist.filter(item => item.name !== name);
+                button.querySelector(".love-icon").classList.remove("active");
+            } else {
+                wishlist.push({ name, price, image, rating });
+                button.querySelector(".love-icon").classList.add("active");
+            }
+
+            localStorage.setItem("wishlist", JSON.stringify(wishlist));
+            updateWishlistCount();
+        });
+    });
+
+    // Function to remove from wishlist (if applicable)
+    window.removeFromWishlist = function (index) {
+        wishlist.splice(index, 1);
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        updateWishlistCount();
+    };
+});
+
+    </script>
+    
+</body>
 </html>

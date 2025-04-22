@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: green;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #FFD700;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Thank You for Your Order!</h1>
+    <p>Your order has been placed, We will Contact You Soon.</p>
+
+    <p>Check Your Email For Order Confirmation and Payment Confirmation.</p>
+    <a href="index.php" class="btn">Return to Homepage</a>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            clearCart(); // Clear cart when user arrives at Thank You page
+        });
+        
+        // Function to clear the cart
+        function clearCart() {
+            localStorage.removeItem("cart"); // Remove cart data from localStorage
+        }
+        </script>
+        
+</body>
+
+</html>

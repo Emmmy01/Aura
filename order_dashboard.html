@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Ordering Dashboard</title>
+    
+    
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  </head>
+    <style>
+        html, body {
+    overflow-x: hidden;
+}
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+           overflow-x: hidden;
+            background: white;
+            width: 100%;
+        }
+    
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+           
+            width: 96%;
+            background: white;
+         
+        }
+        .menu-icon {
+            font-size: 20px;
+            color: #0c0c0c;
+            cursor: pointer;
+            padding: 20px;
+        }
+        .search-bar {
+            flex: 1;
+            margin: 0 15px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+        .icons {
+            display: flex;
+            align-items: center;
+        }
+        .cart {
+            position: relative;
+            margin-left: 10px;
+        }
+        .cart span {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 10px;
+            height: 10px;
+            background: red;
+            color: white;
+            font-size: 10px;
+            padding: 3px 6px;
+            border-radius: 50%;
+            width: 5px;
+            height: 10px;
+        }
+        .store-banner {
+            width: 96%;
+            display: flex;
+            align-items: center;
+            background: url('Premium Photo _ Food ingredients for italian pasta, spaghetti on black background_.jpg') no-repeat top/cover;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 15px;
+            height: 100%;
+            color: white;
+            position: relative;
+        }
+        .store-banner .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+     
+        .store-info {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1;
+            height: 100%;
+        }
+        .store-logo img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: white;
+        }
+        .store-details {
+            
+            line-height: 5px;
+        
+        }
+        .store-details h3{
+            font-size: 24px;
+        }
+        .store-details p{
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.538);
+        }
+        .store-stats {
+            margin-left: auto;
+            text-align: right;
+            font-weight: bold;
+            display: flex;
+            
+        }
+        .store-stats span {
+            display: flex;
+            flex-direction: column;
+            color: #FFD700
+        }
+        .store-stats {
+            position: relative;
+            display: flex;
+            gap: 30px;
+            z-index: 1;
+        }
+        .store-stats div {
+            text-align: left;
+        }
+        .store-stats span {
+            display: block;
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700;
+        }
+        .store-stats p {
+            margin: 0;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.538);
+        }
+        .cart{
+            color: #0d0d0d;
+            padding: 5px;
+            border:2px solid #111111;
+            border-radius: 10px;
+            cursor: pointer
+            ;
+        }
+        .category-list {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            width: 100%;
+        }
+        .category-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 30px;
+            border: 2px solid #FFD700;
+            background:  #fafaf917;
+            width: 95px;
+            height: 120px;
+        }
+        .category-item img {
+            width: 80px;
+            height: 80px;
+            display: block;
+            margin: 0 auto 10px;
+        }
+        .category-item.active {
+            background: #FFD700;
+            color: white;
+        }
+        .popular-dish {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            width: 100%;
+            margin-top: 60px;
+        }
+        .dish-card {
+            text-align: center;
+            background: #fef9f9bb;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 150px;
+        }
+        .dish-card h4{
+            font-size: 15px;
+        }
+        .dish-card.active {
+            background: #FFD700;
+            color: white;
+        }
+        .active2 {
+            background: #fdfdfd;
+            color: #FFD700;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .dish-card img {
+            width: 130px;
+            height: 130px;
+            margin-top: -80px;
+            border-radius: 50%;
+        }
+
+        .price {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .add-to-cart {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            color: #FFD700;
+            font-weight: bold;
+            position: relative;
+        }
+        .add-to-cart::before,
+        .add-to-cart::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #ccc;
+            margin: 0 10px;
+        }
+        .cart-btn {
+            background: #FFD700;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .head{
+            text-align: left;
+            font-size: 10px;
+            padding: 27px;
+            
+        }
+        .head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.line {
+    display: inline-block;
+    text-align: center;
+    align-items: center;
+    width: 50px; /* Adjust width as needed */
+    height: 2px;
+    background: rgb(5, 5, 5); /* Change color if needed */
+    margin-right: 10px; /* Spacing between line and text */
+}
+.cart-count-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: red;
+            color: white;
+            font-size: 14px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Sidebar Styling */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px; /* Hidden by default */
+            width: 350px;
+            height: 100%;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+            transition: right 0.4s ease-in-out;
+            padding: 20px;
+            overflow-y: auto;
+            border-radius:10px;
+            z-index: 1000;
+        }
+        .cart-sidebar.open {
+            right: 0; /* Slide in */
+        }
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart-header h2 {
+            font-size: 20px;
+        }
+        .close-cart {
+            font-size: 24px;
+            cursor: pointer;
+            color: black;
+        }
+        .cart-items {
+            margin-top: 20px;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 10px;
+        }
+        .cart-item .details {
+            flex-grow: 1;
+        }
+        .cart-item .details p {
+            margin: 0;
+        }
+        .cart-item .remove {
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+        }
+        .cart-footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .checkout-btn {
+            background: #FFD700;
+            color: #000;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        /* Overlay effect when sidebar is open */
+      
+        .cart-overlay.active {
+            display: block;
+        }
+        
+    .cart-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .cart-header h1{
+        display: inline-block;
+        font-size: 30px;
+        border-bottom: 2px  solid #FFD700;
+    }
+    .cart-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+    }
+    .cart-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+    .item-details {
+        flex: 1;
+        margin-left: 15px;
+    }
+    .quantity-control button {
+        background: #FFD700;
+        border: none;
+     
+        cursor: pointer;
+        border-radius: 40px;
+        width: 18px;
+        height: 18px;
+        color: white;
+    font-size: 13px;
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+  
+   
+    border-radius: 50%;
+    }
+    .remove {
+        background: rgb(12, 11, 11);
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 40px;
+    }
+    .cart-summary {
+        text-align: right;
+        margin-top: 20px;
+    }
+    .order-now {
+        width: 100%;
+        padding: 10px;
+        background: #FFD700;
+        color: rgb(9, 8, 8);
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 20px;
+    }
+
+    .cart-count-badge {
+    position: absolute;
+    top: -2px;
+    right: 115px;
+    background: red;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    
+}
+#cart-count{
+    color: #f6f5f5;
+}
+.tax2{
+    border-top: 2px solid #ddd;
+    
+}
+.bak a{
+        color: #666;
+       
+    }
+    .cart-count-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: red;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    
+    transform: translate(50%, -50%); /* Center on top-right */
+}
+.cart-icon-container {
+    position: relative; /* Ensures the badge positions correctly */
+    display: inline-block; /* Keeps it inline */
+}
+.wishlist-icon-container {
+    position: relative; /* Ensures the badge positions correctly */
+    display: inline-block; /* Keeps it inline */
+}
+
+.love-icon.active {
+    color: red;
+    -webkit-text-stroke: 2px rgb(248, 5, 5); /* Gray border */
+}
+#wishlist-count {
+    position: absolute;
+    top: 0;
+    right: 6px;
+    background: red;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    
+    transform: translate(50%, -50%); /* Center on top-right */
+}
+.cart-notification {
+    position: fixed;
+    bottom: 400px;
+    right:35px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    display: none;
+    animation: fadeInOut 3s ease-in-out;
+    z-index: 9999;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(20px); }
+    20% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(20px); }
+}
+.cart-summary {
+        text-align: right;
+        margin-top: 20px;
+    }
+    .tax2{
+    border-top: 2px solid #ddd;
+    
+}
+.order-now {
+        width: 100%;
+        padding: 10px;
+        background: #FFD700;
+        color: rgb(9, 8, 8);
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 20px;
+    }
+
+ 
+@media (max-width: 768px) {
+  .category-list{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .store-banner {
+            width: 86%;
+            display: block;
+            align-items: center;
+            background: url('Premium Photo _ Food ingredients for italian pasta, spaghetti on black background_.jpg') no-repeat top/cover;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 15px;
+            height: 100%;
+            color: white;
+            position: relative;
+        }
+        .store-banner .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+     
+        .store-info {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1;
+            height: 100%;
+        }
+        .store-logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            margin-top: 14px;
+        }
+        .store-details {
+            
+            line-height: 12px;
+        
+        }
+        .store-details h3{
+            font-size: 26px;
+        }
+        .store-details p{
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.538);
+        }
+        .store-stats {
+            margin-left: 65px;
+            text-align: center;
+            font-weight: bold;
+            display: flex;
+            
+        }
+        .store-stats span {
+            display: flex;
+            flex-direction: column;
+            color: #FFD700;
+        }
+        .store-stats {
+            position: relative;
+            display: flex;
+            gap: 30px;
+            z-index: 1;
+        }
+        .store-stats div {
+            text-align: left;
+        }
+        .store-stats span {
+            display: block;
+            font-size: 21px;
+            font-weight: bold;
+            color: #FFD700;
+            
+        }
+        .store-stats p {
+            margin: 0;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.538);
+            white-space: nowrap;
+        }
+        
+        
+}
+
+@media (max-width: 768px) {
+    .popular-dish {
+        flex-wrap: nowrap;
+        overflow-x: auto; /* Enables horizontal scrolling */
+        scroll-snap-type: x mandatory;
+        white-space: wrap;
+        
+        
+        
+    }
+
+    .dish-card {
+        flex: 0 0 calc(40% - 10px);
+        max-width: calc(90% - 10px);
+        scroll-snap-align: start;
+        width: 100%;
+        
+    }
+    .popular-dish {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+            padding: 20px;
+            margin: 20px;
+            
+            width: 100%;
+            margin-top: 10px;
+        }
+        .dish-card {
+            text-align: center;
+            background: #fef9f9bb;
+            padding: 10px;
+        
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100px;
+            
+        }
+        .dish-card h4{
+            font-size: 13px;
+        }
+        .dish-card.active {
+            background: #FFD700;
+            color: white;
+        }
+        .active2 {
+            background: #fdfdfd;
+            color: #FFD700;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .dish-card img {
+            width: 120px;
+            height: 120px;
+            margin-top: 0px;
+            border-radius: 50%;
+        }
+
+        .price {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .add-to-cart {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            color: #FFD700;
+            font-weight: bold;
+            position: relative;
+        }
+        .add-to-cart::before,
+        .add-to-cart::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #ccc;
+            margin: 0 10px;
+        }
+        .cart-btn {
+            background: #FFD700;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .head{
+            text-align: left;
+            font-size: 10px;
+            padding: 27px;
+            
+        }
+        .head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cart-sidebar.open {
+            right: -14px; /* Slide in */
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+           margin-top: 10px;
+            width: 94%;
+            background: white;
+         
+        }
+        .menu-icon {
+            font-size: 20px;
+            color: #0c0c0c;
+            cursor: pointer;
+            padding: 20px;
+        }
+        .search-bar {
+            flex: 1;
+            margin: 0 15px;
+        }
+        .search-bar input {
+            width: 90%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+        .icons {
+            display: flex;
+            align-items: center;
+        }
+        .cart {
+            position: relative;
+            margin-left: 10px;
+        }
+}
+
+
+    </style>
+
+<body>
+  
+      <!-- Sidebar Cart -->
+      <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <span class="close-cart" id="close-cart">&times;</span>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be added dynamically -->
+        </div>
+        <div class="cart-summary">
+            <p>Subtotal: <span id="subtotal">₦0</span></p>
+            <p>Tax Fee: <span id="tax">₦30</span></p>
+            <p  class="tax2">Total: <span id="total">₦30</span></p>
+            <button class="order-now" onclick="proceedToOrder()">Order Now</button>
+    
+        </div>
+    </div>
+
+    <!-- Overlay when cart is open -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+       
+        <div class="header">
+
+            <a href="index.php" class="back-button"><i class="fas fa-arrow-left menu-icon"></i></a>
+            <div class="search-bar">
+                <input type="text" placeholder="Search">
+            </div>
+            <div class="icons">
+             
+                <div class="cart" id="cart-icon">
+                    <span id="cart-count" class="cart-count-badge" style="display: none;">0</span>
+              
+                    <i class="fa fa-shopping-basket" ></i>
+                
+                </div>
+            </div>
+        </div>
+        
+        <div class="store-banner">
+            <div class="overlay"></div>
+            <div class="store-info">
+                <div class="store-logo">
+                    <img src="Black_and_White_Modern_Minimalist_Streetwear_Logo-removebg-preview.png" alt="Store Logo">
+                </div>
+                <div class="store-details">
+                    <h3>Mrseechuckenfood</h3>
+                    <p>Fresh & healthy food recipe</p>
+                </div>
+            </div>
+            <div class="store-stats">
+                <div>
+                    <span>34</span>
+                    <p>Total Items</p>
+                </div>
+                <div>
+                    <span>06</span>
+                    <p>Category</p>
+                </div>
+                <div>
+                    <span>04</span>
+                    <p>Outlate</p>
+                </div>
+            </div>
+        </div>
+        <div class="category-list">
+            <div class="category-item" onclick="scrollToSection('burger')"><img src="uploads/Burger__-removebg-preview.png" alt="Burger"><p>Burger</p></div>
+            <div class="category-item active"><img src="A_plate_of_fried_chicken_and_french_fries_with_ketchup___Premium_AI-generated_image-removebg-preview.png" alt="Salad"><p>French Fries</p></div>
+            <div class="category-item" onclick="scrollToSection('pizza')"><img src="Generative_AI_pizza_isolated_on_white_background___Premium_photo-removebg-preview.png" alt="Pizza"><p>Pizza</p></div>
+            <div class="category-item" onclick="scrollToSection('rice')"><img src="Jollof_Rice__My_Mum_s_Recipe_-removebg-preview.png" alt="Steak"><p> Jellof Rice</p></div>
+            <div class="category-item" onclick="scrollToSection('drink')"><img src="The_Difference_Between_Coca-Cola_and_Pepsi__Explained-removebg-preview.png" alt="Drinks"><p>Drinks</p></div>
+            <div class="category-item" onclick="scrollToSection('yam')"><img src="02b282f9-d2ac-4c01-8b60-89701b645788-removebg-preview (1).png" alt="Pizza"><p>Yam</p></div>
+        </div>
+        <div class="head">
+            <h1><span class="line"></span> Popular Dish <span class="line"></span></h1>
+        </div>
+        
+        <div class="popular-dish">
+            
+            <div class="dish-card">
+                <img src="How_to_Make_Jollof_Rice_in_5_Easy_Steps_-_Ev_s_Eats-removebg-preview.png" alt="Fresh and Health Salad">
+                <h4>Jellof Rice + Chicken
+                </h4>
+             
+                <div class="price">₦3,000</div>
+                <div class="add-to-cart"><button class="cart-btn"        data-name="Jellof Rice + Chicken"
+                    data-price="3000"
+                    data-image="How_to_Make_Jollof_Rice_in_5_Easy_Steps_-_Ev_s_Eats-removebg-preview.png">+</button></div>
+            </div>
+            <div class="dish-card active">
+                <img src="Jollof_Rice__My_Mum_s_Recipe_-removebg-preview.png" alt="Cashew Nut Chicken Salad">
+                <h4>Cashew Nut Chicken Salad</h4>
+                
+                <div class="price">₦4,000</div>
+                <div class="add-to-cart"><button class="active2">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="936bb0d7-6505-4831-b035-b937a8754351-removebg-preview (1).png" alt="Crunchy Cashew Salad">
+                <h4>Crunchy Cashew Salad</h4>
+               
+                <div class="price">₦3,500</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="Quick_and_Easy_Nigerian_Egg_stew-removebg-preview.png" alt="Sesame Dressing Salad">
+                <h4>Sesame Dressing Salad</h4>
+                
+                <div class="price">₦3,100</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="A_plate_of_fried_chicken_and_french_fries_with_ketchup___Premium_AI-generated_image-removebg-preview.png" alt="Sesame Dressing Salad">
+                <h4>Sesame Dressing Salad</h4>
+                
+                <div class="price">₦2,150</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+           
+            
+        </div>
+        
+
+        <div id="cart-notification" class="cart-notification">
+            <p></p>
+        </div>
+
+
+
+        <div class="popular-dish">
+            
+            <div class="dish-card">
+                <img src="How_to_Make_Jollof_Rice_in_5_Easy_Steps_-_Ev_s_Eats-removebg-preview.png" alt="Fresh and Health Salad">
+                <h4>Fresh and Health Salad</h4>
+             
+                <div class="price">₦3,000</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card active">
+                <img src="Jollof_Rice__My_Mum_s_Recipe_-removebg-preview.png" alt="Cashew Nut Chicken Salad">
+                <h4>Cashew Nut Chicken Salad</h4>
+                
+                <div class="price">₦4,000</div>
+                <div class="add-to-cart"><button class="active2">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="936bb0d7-6505-4831-b035-b937a8754351-removebg-preview (1).png" alt="Crunchy Cashew Salad">
+                <h4>Crunchy Cashew Salad</h4>
+               
+                <div class="price">₦3,500</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="Quick_and_Easy_Nigerian_Egg_stew-removebg-preview.png" alt="Sesame Dressing Salad">
+                <h4>Sesame Dressing Salad</h4>
+                
+                <div class="price">₦3,100</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="A_plate_of_fried_chicken_and_french_fries_with_ketchup___Premium_AI-generated_image-removebg-preview.png" alt="Sesame Dressing Salad">
+                <h4>Sesame Dressing Salad</h4>
+                
+                <div class="price">₦2,150</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+              
+        
+        </div>
+        <div class="head" id="burger">
+            <h1><span class="line"></span> Burger <span class="line"></span></h1>
+        </div>
+        
+        <div class="popular-dish">
+            
+            <div class="dish-card">
+                <img src="Chicken_Katsu_and_Petaluma_Butter_+_Eggs_Burger_Recipe-removebg-preview.png" alt="Fresh and Health Salad">
+                <h4>Chicken Burger
+                </h4>
+             
+                <div class="price">₦3,000</div>
+                <div class="add-to-cart"><button class="cart-btn"        data-name="Jellof Rice + Chicken"
+                    data-price="3000"
+                    data-image="How_to_Make_Jollof_Rice_in_5_Easy_Steps_-_Ev_s_Eats-removebg-preview.png">+</button></div>
+            </div>
+            <div class="dish-card active">
+                <img src="Chicken_Katsu_and_Petaluma_Butter_+_Eggs_Burger_Recipe-removebg-preview.png" alt="Cashew Nut Chicken Salad">
+                <h4>Meat Burger</h4>
+                
+                <div class="price">₦4,000</div>
+                <div class="add-to-cart"><button class="active2">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="936bb0d7-6505-4831-b035-b937a8754351-removebg-preview (1).png" alt="Crunchy Cashew Salad">
+                <h4>Crunchy Cashew Salad</h4>
+               
+                <div class="price">₦3,500</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="Quick_and_Easy_Nigerian_Egg_stew-removebg-preview.png" alt="Sesame Dressing Salad">
+                <h4>Sesame Dressing Salad</h4>
+                
+                <div class="price">₦3,100</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="A_plate_of_fried_chicken_and_french_fries_with_ketchup___Premium_AI-generated_image-removebg-preview.png" alt="Sesame Dressing Salad">
+                <h4>Sesame Dressing Salad</h4>
+                
+                <div class="price">₦2,150</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+           
+            
+        </div>
+        <div class="head" id="rice">
+            <h1><span class="line"></span> Jellof Rice <span class="line"></span></h1>
+        </div>
+        
+        <div class="popular-dish">
+            
+            <div class="dish-card">
+                <img src="How_to_Make_Jollof_Rice_in_5_Easy_Steps_-_Ev_s_Eats-removebg-preview.png" alt="Fresh and Health Salad">
+                <h4>Jellof Rice + Chicken
+                </h4>
+             
+                <div class="price">₦3,000</div>
+                <div class="add-to-cart"><button class="cart-btn"        data-name="Jellof Rice + Chicken"
+                    data-price="3000"
+                    data-image="How_to_Make_Jollof_Rice_in_5_Easy_Steps_-_Ev_s_Eats-removebg-preview.png">+</button></div>
+            </div>
+            <div class="dish-card active">
+                <img src="Jollof_Rice__My_Mum_s_Recipe_-removebg-preview.png" alt="Cashew Nut Chicken Salad">
+                <h4>Cashew Nut Chicken Salad</h4>
+                
+                <div class="price">₦4,000</div>
+                <div class="add-to-cart"><button class="active2">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="936bb0d7-6505-4831-b035-b937a8754351-removebg-preview (1).png" alt="Crunchy Cashew Salad">
+                <h4>Crunchy Cashew Salad</h4>
+               
+                <div class="price">₦3,500</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="Quick_and_Easy_Nigerian_Egg_stew-removebg-preview.png" alt="Sesame Dressing Salad">
+                <h4>Sesame Dressing Salad</h4>
+                
+                <div class="price">₦3,100</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="A_plate_of_fried_chicken_and_french_fries_with_ketchup___Premium_AI-generated_image-removebg-preview.png" alt="Sesame Dressing Salad">
+                <h4>Sesame Dressing Salad</h4>
+                
+                <div class="price">₦2,150</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+           
+            
+        </div>
+        <div class="head" id="yam">
+            <h1><span class="line"></span> Yam <span class="line"></span></h1>
+        </div>
+        
+        <div class="popular-dish">
+            
+            <div class="dish-card">
+                <img src="02b282f9-d2ac-4c01-8b60-89701b645788-removebg-preview (1).png" alt="Fresh and Health Salad">
+                <h4>Jellof Rice + Chicken
+                </h4>
+             
+                <div class="price">₦3,000</div>
+                <div class="add-to-cart"><button class="cart-btn"        data-name="Jellof Rice + Chicken"
+                    data-price="3000"
+                    data-image="How_to_Make_Jollof_Rice_in_5_Easy_Steps_-_Ev_s_Eats-removebg-preview.png">+</button></div>
+            </div>
+            <div class="dish-card active">
+                <img src="Quick_and_Easy_Nigerian_Egg_stew-removebg-preview.png" alt="Cashew Nut Chicken Salad">
+                <h4>Cashew Nut Chicken Salad</h4>
+                
+                <div class="price">₦4,000</div>
+                <div class="add-to-cart"><button class="active2">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="936bb0d7-6505-4831-b035-b937a8754351-removebg-preview (1).png" alt="Crunchy Cashew Salad">
+                <h4>Crunchy Cashew Salad</h4>
+               
+                <div class="price">₦3,500</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="Quick_and_Easy_Nigerian_Egg_stew-removebg-preview.png" alt="Sesame Dressing Salad">
+                <h4>Sesame Dressing Salad</h4>
+                
+                <div class="price">₦3,100</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="A_plate_of_fried_chicken_and_french_fries_with_ketchup___Premium_AI-generated_image-removebg-preview.png" alt="Sesame Dressing Salad">
+                <h4>Sesame Dressing Salad</h4>
+                
+                <div class="price">₦2,150</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+           
+            
+        </div>
+        <div class="head" id="pizza">
+            <h1><span class="line"></span> Pizza<span class="line"></span></h1>
+        </div>
+        
+        <div class="popular-dish">
+            
+            <div class="dish-card">
+                <img src="Generative_AI_pizza_isolated_on_white_background___Premium_photo-removebg-preview.png" alt="Fresh and Health Salad">
+                <h4>Jellof Rice + Chicken
+                </h4>
+             
+                <div class="price">₦3,000</div>
+                <div class="add-to-cart"><button class="cart-btn"        data-name="Jellof Rice + Chicken"
+                    data-price="3000"
+                    data-image="How_to_Make_Jollof_Rice_in_5_Easy_Steps_-_Ev_s_Eats-removebg-preview.png">+</button></div>
+            </div>
+            <div class="dish-card active">
+                <img src="_A_scrumptious__mouth-watering_cheesy_pizza_recipe-removebg-preview.png" alt="Cashew Nut Chicken Salad">
+                <h4>Cashew Nut Chicken Salad</h4>
+                
+                <div class="price">₦4,000</div>
+                <div class="add-to-cart"><button class="active2">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="936bb0d7-6505-4831-b035-b937a8754351-removebg-preview (1).png" alt="Crunchy Cashew Salad">
+                <h4>Crunchy Cashew Salad</h4>
+               
+                <div class="price">₦3,500</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="Quick_and_Easy_Nigerian_Egg_stew-removebg-preview.png" alt="Sesame Dressing Salad">
+                <h4>Sesame Dressing Salad</h4>
+                
+                <div class="price">₦3,100</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="A_plate_of_fried_chicken_and_french_fries_with_ketchup___Premium_AI-generated_image-removebg-preview.png" alt="Sesame Dressing Salad">
+                <h4>Sesame Dressing Salad</h4>
+                
+                <div class="price">₦2,150</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+           
+            
+        </div>
+        <div class="head" id="drink">
+            <h1><span class="line"></span> Drinks <span class="line"></span></h1>
+        </div>
+        
+        <div class="popular-dish">
+            
+            <div class="dish-card">
+                <img src="280ml_Premium_Falooda_milk_Drink_with_Latte_flavour_canada-removebg-preview.png" alt="Fresh and Health Salad">
+                <h4>Jellof Rice + Chicken
+                </h4>
+             
+                <div class="price">₦3,000</div>
+                <div class="add-to-cart"><button class="cart-btn"        data-name="Jellof Rice + Chicken"
+                    data-price="3000"
+                    data-image="How_to_Make_Jollof_Rice_in_5_Easy_Steps_-_Ev_s_Eats-removebg-preview.png">+</button></div>
+            </div>
+            <div class="dish-card active">
+                <img src="FANTA__300ml____Imported_from_India___Refreshing_Drink-removebg-preview.png" alt="Cashew Nut Chicken Salad">
+                <h4>Cashew Nut Chicken Salad</h4>
+                
+                <div class="price">₦4,000</div>
+                <div class="add-to-cart"><button class="active2">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="936bb0d7-6505-4831-b035-b937a8754351-removebg-preview (1).png" alt="Crunchy Cashew Salad">
+                <h4>Crunchy Cashew Salad</h4>
+               
+                <div class="price">₦3,500</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="Quick_and_Easy_Nigerian_Egg_stew-removebg-preview.png" alt="Sesame Dressing Salad">
+                <h4>Sesame Dressing Salad</h4>
+                
+                <div class="price">₦3,100</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+            <div class="dish-card">
+                <img src="A_plate_of_fried_chicken_and_french_fries_with_ketchup___Premium_AI-generated_image-removebg-preview.png" alt="Sesame Dressing Salad">
+                <h4>Sesame Dressing Salad</h4>
+                
+                <div class="price">₦2,150</div>
+                <div class="add-to-cart"><button class="cart-btn">+</button></div>
+            </div>
+           
+            
+        </div>
+        
+        
+        
+        
+        
+        <script src="script.js"></script>
+        <script src="st.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                const notification = document.getElementById("cart-notification");
+        
+                document.querySelectorAll(".cart-btn").forEach(button => {
+                    button.addEventListener("click", function () {
+                        let name = this.getAttribute("data-name");
+                        let price = parseInt(this.getAttribute("data-price").replace(",", ""));
+                        let image = this.getAttribute("data-image");
+        
+                        let existingItem = cart.find(item => item.name === name);
+                        if (existingItem) {
+                            existingItem.quantity += 1;
+                        } else {
+                            cart.push({ name, price, image, quantity: 1 });
+                        }
+        
+                        localStorage.setItem("cart", JSON.stringify(cart));
+        
+                        // Show custom notification
+                        notification.style.display = "block";
+                        notification.innerHTML = `<p>${name} added to cart!</p>`;
+        
+                        setTimeout(() => {
+                            notification.style.display = "none";
+                            window.location.href = "Order_dashboard.html"; // Redirect to cart
+                        }, 1500);
+                    });
+                });
+            });
+        </script>
+         <script>
+            document.addEventListener("DOMContentLoaded", function() {
+           let cart = JSON.parse(localStorage.getItem("cart")) || [];
+           const cartCountEl = document.getElementById("cart-count3");
+   
+           function updateCartCount() {
+               let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+               if (totalItems > 0) {
+                   cartCountEl.style.display = "flex";
+                   cartCountEl.textContent = totalItems;
+               } else {
+                   cartCountEl.style.display = "none";
+               }
+           }
+   
+           updateCartCount(); // Call on page load
+   
+           // Modify "Add to Cart" function to update count dynamically
+           document.querySelectorAll(".cart-btn").forEach(button => {
+               button.addEventListener("click", function () {
+                   let name = this.getAttribute("data-name");
+                   let price = parseInt(this.getAttribute("data-price").replace(",", ""));
+                   let image = this.getAttribute("data-image");
+   
+                   let existingItem = cart.find(item => item.name === name);
+                   if (existingItem) {
+                       existingItem.quantity += 1;
+                   } else {
+                       cart.push({ name, price, image, quantity: 1 });
+                   }
+   
+                   localStorage.setItem("cart", JSON.stringify(cart));
+                   updateCartCount();
+               });
+           });
+   
+           // Modify "Remove Item" function to update count when an item is removed
+           window.removeItem = function(index) {
+               cart.splice(index, 1);
+               localStorage.setItem("cart", JSON.stringify(cart));
+               updateCartDisplay();
+               updateCartCount();
+           };
+   
+           // Modify "Change Quantity" function to update count
+           window.changeQuantity = function(index, change) {
+               cart[index].quantity += change;
+               if (cart[index].quantity <= 0) {
+                   cart.splice(index, 1);
+               }
+               localStorage.setItem("cart", JSON.stringify(cart));
+               updateCartDisplay();
+               updateCartCount();
+           };
+       });
+   
+   
+         </script>
+          <script>
+            document.addEventListener("DOMContentLoaded", function() {
+           let cart = JSON.parse(localStorage.getItem("cart")) || [];
+           const cartCountEl = document.getElementById("cart-count");
+   
+           function updateCartCount() {
+               let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+               if (totalItems > 0) {
+                   cartCountEl.style.display = "flex";
+                   cartCountEl.textContent = totalItems;
+               } else {
+                   cartCountEl.style.display = "none";
+               }
+           }
+   
+           updateCartCount(); // Call on page load
+   
+           // Modify "Add to Cart" function to update count dynamically
+           document.querySelectorAll(".cart-btn").forEach(button => {
+               button.addEventListener("click", function () {
+                   let name = this.getAttribute("data-name");
+                   let price = parseInt(this.getAttribute("data-price").replace(",", ""));
+                   let image = this.getAttribute("data-image");
+   
+                   let existingItem = cart.find(item => item.name === name);
+                   if (existingItem) {
+                       existingItem.quantity += 1;
+                   } else {
+                       cart.push({ name, price, image, quantity: 1 });
+                   }
+   
+                   localStorage.setItem("cart", JSON.stringify(cart));
+                   updateCartCount();
+               });
+           });
+   
+           // Modify "Remove Item" function to update count when an item is removed
+           window.removeItem = function(index) {
+               cart.splice(index, 1);
+               localStorage.setItem("cart", JSON.stringify(cart));
+               updateCartDisplay();
+               updateCartCount();
+           };
+   
+           // Modify "Change Quantity" function to update count
+           window.changeQuantity = function(index, change) {
+               cart[index].quantity += change;
+               if (cart[index].quantity <= 0) {
+                   cart.splice(index, 1);
+               }
+               localStorage.setItem("cart", JSON.stringify(cart));
+               updateCartDisplay();
+               updateCartCount();
+           };
+       });
+   
+   
+         </script>
+         <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                const cartItemsContainer = document.getElementById("cart-items");
+                const subtotalEl = document.getElementById("subtotal");
+                const totalEl = document.getElementById("total");
+               
+        
+            
+         // Create a message element for an empty cart
+         const emptyMessage = document.createElement("p");
+            emptyMessage.id = "empty-cart-message";
+            emptyMessage.textContent = "Your cart is empty.";
+            emptyMessage.style.textAlign = "center";
+            emptyMessage.style.fontSize = "18px";
+            emptyMessage.style.color = "black";
+            cartItemsContainer.appendChild(emptyMessage);
+        
+            function updateCartDisplay() {
+            cartItemsContainer.innerHTML = ""; // Clear previous content
+            let subtotal = 0;
+        
+            if (cart.length === 0) {
+                cartItemsContainer.appendChild(emptyMessage); // Show empty message
+            } else {
+                cart.forEach((item, index) => {
+                    let cartItem = document.createElement("div");
+                    cartItem.classList.add("cart-item");
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="item-details">
+                            <h3>${item.name}</h3>
+                            <p>₦${item.price}</p>
+                            <div class="quantity-control">
+                                <button class="decrease" onclick="changeQuantity(${index}, -1)">-</button>
+                                <span class="quantity">${item.quantity}</span>
+                                <button class="increase" onclick="changeQuantity(${index}, 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="remove" onclick="removeItem(${index})">×</button>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                    subtotal += item.price * item.quantity;
+                });
+            }
+        
+            let tax = subtotal * 0.05; // ✅ 5% of subtotal
+            let total = subtotal + tax; // ✅ Total = Subtotal + 5% tax
+        
+            subtotalEl.textContent = `₦${subtotal.toFixed(2)}`;
+            document.getElementById("tax").textContent = `₦${tax.toFixed(2)}`; // ✅ Tax display
+            totalEl.textContent = `₦${total.toFixed(2)}`;
+        }
+        
+        
+                window.changeQuantity = function (index, change) {
+                    cart[index].quantity += change;
+                    if (cart[index].quantity <= 0) {
+                        cart.splice(index, 1);
+                    }
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    updateCartDisplay();
+                };
+        
+                window.removeItem = function (index) {
+                    cart.splice(index, 1);
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    updateCartDisplay();
+                };
+        
+                updateCartDisplay();
+             
+                const cartCountEl = document.getElementById("cart-count");
+        
+                function updateCartCount() {
+                    let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    if (totalItems > 0) {
+                        cartCountEl.style.display = "flex";
+                        cartCountEl.textContent = totalItems;
+                    } else {
+                        cartCountEl.style.display = "none";
+                    }
+                }
+        
+                updateCartCount(); // Call on page load
+        
+                // Modify "Add to Cart" function to update count dynamically
+                document.querySelectorAll(".add-to-cart").forEach(button => {
+                    button.addEventListener("click", function () {
+                        let name = this.getAttribute("data-name");
+                        let price = parseInt(this.getAttribute("data-price").replace(",", ""));
+                        let image = this.getAttribute("data-image");
+        
+                        let existingItem = cart.find(item => item.name === name);
+                        if (existingItem) {
+                            existingItem.quantity += 1;
+                        } else {
+                            cart.push({ name, price, image, quantity: 1 });
+                        }
+        
+                        localStorage.setItem("cart", JSON.stringify(cart));
+                        updateCartCount();
+                    });
+                });
+        
+                // Modify "Remove Item" function to update count when an item is removed
+                window.removeItem = function(index) {
+                    cart.splice(index, 1);
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    updateCartDisplay();
+                    updateCartCount();
+                };
+        
+                // Modify "Change Quantity" function to update count
+                window.changeQuantity = function(index, change) {
+                    cart[index].quantity += change;
+                    if (cart[index].quantity <= 0) {
+                        cart.splice(index, 1);
+                    }
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    updateCartDisplay();
+                    updateCartCount();
+                };
+            });
+        
+                
+        
+        </script>
+        <script>
+            function proceedToOrder() {
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        
+                if (cart.length === 0) {
+                    alert("Your cart is empty! Add items before proceeding.");
+                    return;
+                }
+        
+                // Save cart data before redirecting
+                localStorage.setItem("orderCart", JSON.stringify(cart));
+        
+                // Redirect to the order page
+                window.location.href = "order.php";
+            }
+        </script>
+        
+        <script src="script.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+            const wishlistCountEl = document.getElementById("wishlist-count");
+        
+            // Function to update the wishlist count
+            function updateWishlistCount() {
+                wishlistCountEl.textContent = wishlist.length;
+                wishlistCountEl.style.display = wishlist.length > 0 ? "flex" : "none";
+            }
+        
+            // Check existing wishlist items and update icons on page load
+            document.querySelectorAll(".wishlist").forEach(button => {
+                let name = button.parentElement.querySelector("h3").textContent;
+                let isInWishlist = wishlist.some(item => item.name === name);
+                
+                if (isInWishlist) {
+                    button.querySelector(".love-icon").classList.add("active");
+                }
+        
+                button.addEventListener("click", function () {
+                    let price = parseInt(button.parentElement.querySelector("p").textContent.replace("₦", "").replace(",", ""));
+                    let image = button.parentElement.querySelector("img").src;
+                    let rating = button.parentElement.querySelector(".rating").textContent.replace("⭐ ", "");
+        
+                    let existingItem = wishlist.find(item => item.name === name);
+                    if (existingItem) {
+                        wishlist = wishlist.filter(item => item.name !== name);
+                        button.querySelector(".love-icon").classList.remove("active");
+                    } else {
+                        wishlist.push({ name, price, image, rating });
+                        button.querySelector(".love-icon").classList.add("active");
+                    }
+        
+                    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+                    updateWishlistCount(); // Update count when items are added/removed
+                });
+            });
+        
+            updateWishlistCount(); // Call on page load
+        });
+        
+        function scrollToSection(sectionId) {
+    document.getElementById(sectionId).scrollIntoView({
+        behavior: 'smooth'
+    });
+}
+
+        </script>
+        
+</body>
+</html>

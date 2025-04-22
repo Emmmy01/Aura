@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food App Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #fff;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .top-section {
+            background: red;
+            padding: 40px;
+            text-align: center;
+        }
+        .top-section h1 {
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .top-section h1 span {
+            color: green;
+        }
+        .form-section {
+            background: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .form-section input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-section .checkbox {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            margin: 10px 0;
+        }
+        .form-section button {
+            width: 100%;
+            background: red;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .social-icons i {
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-section">
+            <h1>F<span>oo</span>d</h1>
+        </div>
+        <div class="form-section">
+            <input type="email" placeholder="Enter your email address">
+            <input type="password" placeholder="Enter your password">
+            <div class="checkbox">
+                <input type="checkbox"> <span>I've read and agreed to the User Agreement and Privacy Policy</span>
+            </div>
+            <button>Sign In</button>
+            <p>Other ways to sign in:</p>
+            <div class="social-icons">
+                <i class="fab fa-google" style="color: red;"></i>
+                <i class="fab fa-facebook" style="color: blue;"></i>
+            </div>
+            <p>Don't have an account? <a href="#">Sign Up</a></p>
+        </div>
+    </div>
+</body>
+</html>

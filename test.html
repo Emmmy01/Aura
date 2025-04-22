@@ -1,216 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tech Portfolio</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Sidebar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: Arial, sans-serif;
-        color: #fff;
-        background: #000; /* Black background for contrast */
-        overflow: hidden;
-        cursor: dot;
-      }
-
-      #particles-js {
-        position: absolute;
-        width: 100%;
-        height: 100vh;
-        z-index: -1; /* Ensure it's behind all content */
-      }
-
-      .content {
-        position: relative;
-        text-align: center;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
-      .content h1 {
-        font-size: 3rem;
-        margin-bottom: 20px;
-        color: #2ecc71;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-      }
-
-      .content p {
-        font-size: 1.2rem;
-        color: #aaa;
-      }
-
-      .btn {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 10px 20px;
-        font-size: 1rem;
-        color: #fff;
-        background-color: #2ecc71;
-        text-decoration: none;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-      }
-
-      .btn:hover {
-        background-color: #27ae60;
-      }
-
-      .cursor-dot {
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        background-color: #2ecc71;
-        border-radius: 50%;
-        pointer-events: none; /* Prevent cursor from interacting */
-        transform: translate(-50%, -50%);
-        animation: shrink 1s ease-out forwards;
-      }
-
-      @keyframes shrink {
-        0% {
-          opacity: 1;
-          transform: translate(-50%, -50%) scale(1);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
-        100% {
-          opacity: 0;
-          transform: translate(-50%, -50%) scale(0);
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f8f8f8;
+            overflow-x: hidden;
         }
-      }
+        .cart2 {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .cart2 i {
+            font-size: 24px;
+        }
+        .cart-count-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: red;
+            color: white;
+            font-size: 14px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-      @media (max-width: 768px) {
-        .cursor-dot {
-          animation: none; /* Prevent animation on small screens */
+        /* Sidebar Styling */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px; /* Hidden by default */
+            width: 350px;
+            height: 100%;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+            transition: right 0.4s ease-in-out;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1000;
         }
-      }
+        .cart-sidebar.open {
+            right: 0; /* Slide in */
+        }
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart-header h2 {
+            font-size: 20px;
+        }
+        .close-cart {
+            font-size: 24px;
+            cursor: pointer;
+            color: red;
+        }
+        .cart-items {
+            margin-top: 20px;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 10px;
+        }
+        .cart-item .details {
+            flex-grow: 1;
+        }
+        .cart-item .details p {
+            margin: 0;
+        }
+        .cart-item .remove {
+            cursor: pointer;
+            color: red;
+            font-size: 18px;
+        }
+        .cart-footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .checkout-btn {
+            background: green;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        /* Overlay effect when sidebar is open */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
+        }
+        .cart-overlay.active {
+            display: block;
+        }
+
+        /* Only show sidebar on big screens */
+        @media (max-width: 768px) {
+            .cart-sidebar {
+                display: none;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <div id="particles-js"></div>
+</head>
+<body>
 
-    <div class="content">
-      <h1>Welcome to My Portfolio</h1>
-      <p>Crafting responsive, interactive, and modern web experiences.</p>
-      <a href="#projects" class="btn">Explore Projects</a>
+    <!-- Cart Icon -->
+    <div class="cart2">
+        <span id="cart-count" class="cart-count-badge" style="display: none;">0</span>
+        <i class="fa fa-shopping-bag" id="cart-icon"></i>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-    <script>
-      particlesJS("particles-js", {
-        particles: {
-          number: {
-            value: 80,
-            density: {
-              enable: true,
-              value_area: 800,
-            },
-          },
-          color: {
-            value: "#2ecc71",
-          },
-          shape: {
-            type: "circle",
-            stroke: {
-              width: 0,
-              color: "#000000",
-            },
-          },
-          opacity: {
-            value: 0.5,
-            random: false,
-            anim: {
-              enable: false,
-            },
-          },
-          size: {
-            value: 3,
-            random: true,
-            anim: {
-              enable: false,
-            },
-          },
-          line_linked: {
-            enable: true,
-            distance: 150,
-            color: "#2ecc71",
-            opacity: 0.4,
-            width: 1,
-          },
-          move: {
-            enable: true,
-            speed: 3,
-            direction: "none",
-            random: false,
-            straight: false,
-            out_mode: "out",
-            attract: {
-              enable: false,
-            },
-          },
-        },
-        interactivity: {
-          detect_on: "canvas",
-          events: {
-            onhover: {
-              enable: true,
-              mode: "repulse",
-            },
-            onclick: {
-              enable: true,
-              mode: "push",
-            },
-            resize: true,
-          },
-          modes: {
-            repulse: {
-              distance: 100,
-              duration: 0.4,
-            },
-            push: {
-              particles_nb: 4,
-            },
-          },
-        },
-        retina_detect: true,
-      });
-    </script>
-    <script>
-      const isSmallScreen = window.innerWidth <= 768;
+    <!-- Sidebar Cart -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <span class="close-cart" id="close-cart">&times;</span>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be added dynamically -->
+        </div>
+        <div class="cart-footer">
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
 
-      // Add event listener for cursor movement
-      document.addEventListener("mousemove", (e) => {
-        createDot(e.pageX, e.pageY);
-      });
+    <!-- Overlay when cart is open -->
+    <div class="cart-overlay" id="cart-overlay"></div>
 
-      // Add event listener for touch movement on small screens
-      if (isSmallScreen) {
-        document.addEventListener("touchmove", (e) => {
-          const touch = e.touches[0];
-          createDot(touch.pageX, touch.pageY);
-        });
-      }
+    <script src="st.js"></script>
 
-      function createDot(x, y) {
-        const dot = document.createElement("div");
-        dot.classList.add("cursor-dot");
-        dot.style.left = `${x}px`;
-        dot.style.top = `${y}px`;
-
-        document.body.appendChild(dot);
-
-        // Remove the dot after animation or delay
-        if (!isSmallScreen) {
-          setTimeout(() => dot.remove(), 1000); // Remove after animation
-        } else {
-          setTimeout(() => dot.remove(), 3000); // Longer persistence for small screens
-        }
-      }
-    </script>
-  </body>
+</body>
 </html>

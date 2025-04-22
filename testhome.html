@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR SEE CHICKEN FOOD - Order Now</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<style>
+    /* General Styles */
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        color: #333;
+       
+    }
+
+    /* Header */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 50px;
+        background: white;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .logo span {
+        color: red;
+    }
+
+    nav ul {
+        display: flex;
+        list-style: none;
+    }
+
+    nav ul li {
+        margin: 0 15px;
+    }
+
+    nav ul li a {
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+    }
+
+    .cart {
+        position: relative;
+    }
+
+    .cart img {
+        width: 30px;
+    }
+
+    .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -12px;
+        background: red;
+        color: white;
+        font-size: 10px;
+        padding: 3px 6px;
+        border-radius: 60%;
+    }
+
+    .auth-buttons button {
+        background: #FFD700;
+        border: none;
+        padding: 10px 15px;
+        margin-left: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 50px;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Main Section */
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 80px 50px;
+        position: relative;
+        margin-top: -70px;
+    }
+
+    /* Left Side */
+    .order-details {
+        width: 50%;
+        margin-top: -90px;
+    }
+
+    .order-details h1 {
+        font-size: 50px;
+        margin-bottom: 10px;
+    }
+
+    .order-details span {
+        color: #FFD700;
+    }
+
+    .total-price {
+        font-size: 24px;
+        margin: 20px 0;
+    }
+
+    .total-price span {
+        font-weight: bold;
+    }
+
+    .quantity {
+        display: flex;
+        align-items: center;
+    }
+    .food-item span{
+        font-size: 10px;
+    }
+    .first{
+        background: #fff;
+        color: #FFD700;
+    }
+
+    .quantity button {
+        background: rgb(6, 6, 6);
+        border: none;
+        color: white;
+        padding: 10px;
+        font-size: 18px;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 8px;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .quantity input {
+        width: 50px;
+        text-align: center;
+        font-size: 18px;
+        border: none;
+    }
+
+    .buy-now {
+        background: black;
+        color: white;
+        padding: 15px 30px;
+        margin-top: 20px;
+        cursor: pointer;
+        border: none;
+        font-size: 16px;
+        border-radius: 50px;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Right Side */
+    .food-display {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .food-display img {
+        width: 450px;
+        border-radius: 50%;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Circle Background */
+    .food-bg {
+        position: absolute;
+        right: -190px;
+        top: -20px;
+        width: 600px;
+        height: 600px;
+        background: #FFD700;
+        border-radius: 50%;
+        z-index: 1;
+    }
+
+    .food-info {
+        display: none;
+        position: absolute;
+        bottom: -30px;
+        background: #FFD700;
+        padding: 12px;
+        border-radius: 10px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Food Slider */
+    .food-slider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -190px; /* Bringing it up */
+        margin-left: -840px;
+        border-radius: 100px;
+    }
+
+    .food-item {
+        text-align: center;
+        margin: 0 10px;
+        background: #FFD700;
+        padding: 10px;
+        height: 100px;
+        border-radius: 55px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .food-item p{
+        font-size: 15px;
+        margin-top: -6px;
+    }
+
+    .food-item img {
+        width: 70px;
+        border-radius: 50%;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .prev, .next {
+        background: none;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 50%;
+    }
+    .first{
+        background: #fff;
+        color: #FFD700;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+/* Fix Navigation Links */
+nav {
+    position: relative;
+    z-index: 3; /* Ensures links are clickable */
+}
+
+/* Fix Button Clickability */
+button, .buy-now {
+    position: relative;
+    z-index: 3;
+}
+
+/* Fix Food Display Background Blocking Clicks */
+.food-bg {
+    pointer-events: none; /* Prevents blocking clicks */
+}
+
+</style>
+<body>
+    <header>
+        <div class="logo">MrSee<span>Chicken</span></div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="#">Service</a></li>
+                <li><a href="#">Shop</a></li>
+            </ul>
+        </nav>
+        <div class="cart">
+            <span class="cart-count">2</span>
+            <img src="carts.png" alt="Cart">
+        </div>
+        <div class="auth-buttons">
+            <button class="signin">Sign In</button>
+            <button class="login">Login</button>
+        </div>
+    </header>
+
+    <section class="container">
+        <!-- Left Side: Text & Order Details -->
+        <div class="order-details">
+            <h1>Order your <br>favourite <span>Foods</span></h1>
+            <p>Fresh and tasty meals made just for you. Order now and enjoy a delicious experience!</p>
+            <button class="buy-now">Buy Now</button>
+        </div>
+
+        <!-- Right Side: Food Image & Details -->
+        <div class="food-display">
+            <div class="food-bg"></div> <!-- Background Circle -->
+            <img src="Hibachi_Fried_Rice-removebg-preview.png" alt="Salad">
+        
+        </div>
+    </section>
+
+    <!-- Small Food Slider -->
+    <section class="food-slider">
+        
+        <div class="food-item">
+            <img src="Burger__-removebg-preview.png" alt="Burger">
+            <p>Burger <br> <span>₦3,000</span></p>
+        </div>
+        <div class="food-item first">
+            <img src="Burger__-removebg-preview.png" alt="Burger">
+            <p>Burger <br> <span>₦3,000</span></p>
+        </div>
+        <div class="food-item">
+            <img src="Burger__-removebg-preview.png" alt="Burger">
+            <p>Burger <br> <span>₦3,000</span></p>
+        </div>
+        
+    </section>
+</body>
+</html>
